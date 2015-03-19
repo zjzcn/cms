@@ -1,0 +1,80 @@
+@charset "utf-8";
+.msgbox_layout_wrap {
+    width: 100%;
+    position: fixed;
+    _position: absolute;
+    top: 46%;
+    left: 0;
+    text-align: center;
+    z-index: 65533;
+    overflow: hidden;
+    _height: 54px;
+}
+
+
+.msgbox_layout,
+.msgbox_layout .icon_start,
+.msgbox_layout .icon_end {
+    display: inline-block;
+    height: 54px;
+    line-height: 54px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #606060;
+    background-image: url("./gb_tip_layer.png");
+    _background-image: url("./gb_tip_layer_ie6.png");
+    background-repeat: no-repeat;
+}
+
+.msgbox_layout {
+    background-position: 0 -161px;
+    background-repeat: repeat-x;
+    padding: 0 18px 0 9px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.msgbox_layout .icon_start {
+    background-position: -6px 0;
+    left: -5px;
+    width: 5px;
+    position: absolute;
+    top: 0;
+}
+.msgbox_layout .icon_end {
+    background-position: 0 0;
+    position: absolute;
+    right: -6px;
+    top: 0;
+    width: 6px;
+}
+
+.msgbox_layout .icon_loading,
+.msgbox_layout .icon_ok,
+.msgbox_layout .icon_warn,
+.msgbox_layout .icon_error,
+.msgbox_layout .icon_none {
+    height: 54px;
+    line-height: 54px;
+	padding-left:45px;
+	display:-moz-inline-box; /* cssע�ͣ�for ff2 */ 
+	display:inline-block;
+	background-repeat: no-repeat;
+	background-position: center left;
+}
+
+.msgbox_layout .icon_loading{
+	background-image: url("./loading.gif");
+}
+.msgbox_layout .icon_ok{
+	background-image: url("./ok.png");
+}
+.msgbox_layout .icon_warn{
+	background-image: url("./warn.png");
+}
+.msgbox_layout .icon_error{
+	background-image: url("./error.png");
+}
+.msgbox_layout .icon_none{
+	padding-left:10px;
+}

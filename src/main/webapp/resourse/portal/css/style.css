@@ -1,0 +1,168 @@
+/* Free css docuement by http://Templatesperfect.com
+Template: NewgenBiz
+ Author Paarth */
+ 
+ 
+* { margin: 0; padding: 0; outline:0; }
+h2 { text-transform:uppercase}
+body {
+    font-size: 12px;
+    line-height: 20px;
+    font-family: Tahoma, Geneva, sans-serif;
+    color: #666;
+    background: #fff url(../images/bg.png) repeat-x;
+}
+html, body { height: 100%; }
+
+
+a { color: #022c50; text-decoration: none; cursor:pointer; }
+a:hover { color: #022c50; text-decoration: underline; }
+
+a img { border: 0; }
+
+input, textarea, select { font-family: Arial, Helvetica, sans-serif; font-size:12px; border: 0; }
+textarea { overflow:hidden; }
+
+/*
+scroll styles here
+*/
+
+.item { width: 980px; height: 320px;}
+.item img {float:left;}
+.item h2 { border:none; margin-bottom:15px;}
+
+.scrollable { position:relative; overflow:hidden; width: 970px; height: 255px;} 
+.scrollable .items { width:20000em; position:absolute;}
+.scrollable .items div { float:left;} 
+.scrollable .items .item { overflow:hidden;}
+.scrollable .items .item p { line-height:16px;}
+.navi { width:auto; height:20px;  margin:5px 40px; float:right;} 
+.navi a { width: 20px; cursor:pointer; height: 20px; float:left; margin:0 0 0 3px; background:url(../images/circl.png) no-repeat scroll top; display:block; font-size:1px;} 
+.navi a:hover, .navi a.active { background-position:left top; margin:0 0 0 3px;  background:url(../images/circl_hov.png) no-repeat scroll top}
+.inner_copyright{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+
+.header
+{
+width: 960px; height: 235px;
+padding-top: 10px;
+background: #fff url(../images/square.png);
+border: 4px solid #ccc;
+}
+
+
+
+		
+.top_left { float: left;
+			width: 570px;
+			height: 195px;
+			}
+			
+.top_right { float: right;
+			width:294px;
+			height: 160px;
+			background:#111;
+			padding: 30px 30px 20px 30px;
+			font-size:14px; color:fff;}
+			
+.top_right h1 {  color:#ccc;}
+.more { color:#ccc; text-decoration:underline}
+
+		
+.circl_all {
+		height: 19px; 
+		vertical-align:top;
+		padding: 290px 0px 0px 40px;}
+
+.circl { background: url(../images/circl.png) left top no-repeat;
+	height: 19px;
+	width: 19px;
+	margin: 0px 10px 0px 0px;
+	float: left;
+	display:block;}
+.circl:hover {
+	background:url(../images/circl_hov.png) left top no-repeat; }
+
+
+
+.cl { display: block; height: 0; font-size: 0; line-height: 0; text-indent: -4000px; clear: both; }
+.notext { font-size: 0; line-height: 0; text-indent: -4000px; }
+
+.left, .alignleft { float: left; display: inline; }
+.right, .alignright { float: right; display: inline; }
+
+h2 { font-size: 20px; line-height: 25px; color: #022c50; }
+h3 { font-size: 15px; line-height: 25px; color: #000; }
+
+#wrapper { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -46px; }
+
+#footer-push { height: 46px; }
+
+/* Shell */
+.shell { width: 970px; margin: 0 auto; }
+/* End Shell */
+
+/* Header */
+
+#header-holder,
+#header-holder .shell { height: 62px; }
+
+#header {  }
+
+#navigation { float: right; display: inline; padding: 23px 7px 0 0; }
+#navigation ul { list-style-type: none; }
+#navigation ul li { float: left; display: inline; padding-left: 50px; }
+#navigation ul li a { float: left; display: inline; font-size: 16px; line-height: 24px; color: #fff; font-weight: bold; }
+#navigation ul li a:hover,
+#navigation ul li a.active { text-decoration: none; color: #05bcc7; }
+
+h1#logo { font-family: Tahoma, sans-serif; font-size: 24px; line-height: 28px; padding-top: 12px; }
+h1#logo a { color: #fff; }
+h1#logo a:hover { text-decoration: none; }
+
+/* End Header */
+
+/* Main */
+
+#main { padding: 15px 0 20px; }
+
+#sidebar { float: left; display: inline; width: 357px; margin-top:25px; font-size:11px; }
+
+.side-list {  }
+.side-list ul { list-style-type: none; padding-top: 14px; }
+.side-list ul li { border-bottom: 2px solid #f6f4f4; position: relative; padding: 0 0 25px 131px; margin-bottom: 21px; height: 100%; }
+.side-list ul li.last { border-bottom: 0; }
+.side-list ul li .image { position: absolute; left: 0; top: 4px;}
+.side-list ul li .entry p { padding-left: 2px; }
+.side-list img {  width:100px; height:100px}
+
+p.read-link { font-size: 12px; line-height: 18px; font-weight: bold; padding: 11px 0 5px 4px; }
+
+#content { float: right; display: inline; width: 563px;  margin-top:25px;}
+
+.article { border-bottom: 3px solid #ebebeb; padding-bottom: 15px; }
+.article h2 { padding-bottom: 22px; position: relative; margin-left: -6px; height: 100%; }
+.article .image { float: right; display: inline; padding: 3px 0 0 25px; }
+.article p.more-link { padding: 19px 0 0 0; }
+
+p.more-link a { font-weight: bold; text-decoration: underline; }
+p.more-link a:hover { text-decoration: none; }
+
+.boxes-holder { background: url(images/boxes-holder-bg.gif) repeat-y 0 0; height: 100%; margin-top: 36px; }
+.boxes-holder .box { float: left; display: inline; width: 250px; padding-right: 60px; }
+.boxes-holder .box h2 { padding-bottom: 10px; }
+.boxes-holder .box p.more-link { padding-top: 10px; }
+.boxes-holder .last-box { padding-right: 0; }
+
+/* End Main */
+
+/* Footer */
+
+#footer-holder,
+#footer-holder .shell { background:url(../images/content_bg.png) #e5e5e5; height: 46px; }
+
+#footer { font-size: 11px; line-height: 18px; color: #555; padding: 14px 2px 14px 0; }
+#footer p span { padding: 0 4px 0 5px; }
+#footer a { color: #685d5d; }
+#footer .right a { color: #022c50; text-transform: uppercase; }
+
+/* End Footer */

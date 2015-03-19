@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+	<diskStore path="tmp/cache" />
+
+	<cache name="authz" maxElementsInMemory="100" timeToLiveSeconds="3600" eternal="false" overflowToDisk="false" />
+	<cache name="logConfig" maxElementsInMemory="100" eternal="true" overflowToDisk="true" />
+	<cache name="menu" maxElementsInMemory="100" eternal="true" overflowToDisk="true" />
+	<cache name="perm" maxElementsInMemory="100" eternal="true" overflowToDisk="true" />
+</ehcache>

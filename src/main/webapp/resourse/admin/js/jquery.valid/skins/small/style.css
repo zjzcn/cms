@@ -1,0 +1,43 @@
+﻿@charset "utf-8";
+/*
+ * valid 默认皮肤
+ * (C) 2009-2011 【一丝冰凉】, http://t.qq.com/yisibl, QQ:50167214
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
+ */
+/*==================制作新皮肤从这里开始复制==================*/
+
+.valid-ele-error {
+	background-color:#ffe7e7
+}
+.valid-msg-error {
+	color:red;
+	margin-left:10px;
+	padding-left:22px;
+	white-space:nowrap;
+	background:url(images/valid-error.png) no-repeat left center;
+}
+
+.valid-msg-warn {
+	color:#1E95F6;
+	margin-left:10px;
+	padding-left:22px;
+	white-space:nowrap;
+	background:url(images/valid-warn.png) no-repeat left center;
+}
+
+.valid-msg-ok {
+	color:#71b83d;
+	margin-left:10px;
+	padding-left:22px;
+	white-space:nowrap;
+	background:url(images/valid-ok.png) no-repeat left center;
+}
+
+.valid-msg-wait {
+	color:#FFD306;
+	margin-left:10px;
+	padding-left:22px;
+	white-space:nowrap;
+	background:url(images/valid-wait.gif) no-repeat left center;
+}
