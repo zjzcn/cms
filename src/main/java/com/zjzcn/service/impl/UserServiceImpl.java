@@ -155,7 +155,7 @@ public class UserServiceImpl implements UserService
     
     public User findByUsername(String username)
     {
-        Condition cond = new Condition();
+        Condition cond = Condition.newCondition();
         cond.eq("username", username);
         
         return userDao.findByCond(User.class, cond);

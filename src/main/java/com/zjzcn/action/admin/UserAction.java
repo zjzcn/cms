@@ -46,7 +46,7 @@ public class UserAction
     @RequestMapping("user_list")
     public String user_list(User user, PageBean<User> pageBean, HttpServletRequest request, ModelMap model)
     {
-        Condition cond = new Condition();
+        Condition cond = Condition.newCondition();
         cond.likeAnywhere("username", user.getUsername());
         cond.likeAnywhere("name", user.getName());
         cond.eq("gender", user.getGender());
@@ -126,7 +126,7 @@ public class UserAction
     @RequestMapping("user_exist")
     public void user_exist(String username, Writer writer) throws IOException
     {
-    	Condition cond = new Condition();
+    	Condition cond = Condition.newCondition();
     	cond.eq("username", username);
     	User user = userService.findByCond(cond);
     	if(user!=null)
@@ -175,7 +175,7 @@ public class UserAction
         	roleIds.add(role.getId());
         }
         
-        Condition cond = new Condition();
+        Condition cond = Condition.newCondition();
         List<Role> roles=roleService.findListByCond(cond);
         
         model.addAttribute("userId", userId);
@@ -198,7 +198,7 @@ public class UserAction
         
         if (StringUtils.isNotBlank(roleIds))
         {
-            Condition cond = new Condition();
+            Condition cond = Condition.newCondition();
             
             String[] arr=roleIds.split(",");
             Long[] ids=new Long[arr.length];
@@ -228,7 +228,7 @@ public class UserAction
     @RequestMapping("self_changeInfo")
     public String self_edit(HttpServletRequest request, ModelMap model)
     {
-        Condition cond = new Condition();
+        Condition cond = Condition.newCondition();
         cond.eq("username", userService.getCurrentUsername());
         User user = userService.findByCond(cond);
         

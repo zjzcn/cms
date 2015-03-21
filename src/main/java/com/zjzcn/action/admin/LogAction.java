@@ -24,47 +24,46 @@ import com.zjzcn.util.query.PageBean;
  */
 @Controller
 @RequestMapping("admin")
-public class LogAction
-{
-    @Autowired
-    private LogService logService;
-    
-    /**
-     * 查找所有的日志
-     */
-    @RequestMapping("log_list")
-    public String list(Log log, PageBean<Log> pageBean, HttpServletRequest request, ModelMap model)
-    {
-        Condition cond = new Condition();
-        cond.likeAnywhere("username", log.getUsername());
-        cond.likeAnywhere("ip", log.getIp());
-        cond.likeAnywhere("operation", log.getName());
-        cond.eq("logType", log.getLogType());
-        cond.gt("createTime", log.getStartTime());
-        if(StringUtils.isNotBlank(log.getEndTime())){
-            cond.lt("createTime", log.getEndTime()+" 23:59:59");
-        }
-               
-        cond.page(pageBean);
-        cond.orderByDesc("createTime");
-        
-        //查询所有权限，并放入会话
-        pageBean = logService.findPageByCond(cond);
-        
-        model.addAttribute("log", log);
-        model.addAttribute("pageBean", pageBean);
+public class LogAction {
+	@Autowired
+	private LogService logService;
 
-        return "admin/log/log_list";
-    }
-    
-    /**
-     * 删除
-     * @throws IOException 
-     */
-    @RequestMapping("log_delete")
-    public void delete(Long id, Writer writer) throws IOException
-    {
-    	logService.deleteById(id);
-    	writer.write(Constants.OK_FLAG);
-    }
+	/**
+	 * 查找所有的日志
+	 */
+	@RequestMapping("log_list")
+	public String list(Log log, PageBean<Log> pageBean,
+			HttpServletRequest request, ModelMap model) {
+		Condition cond = Condition.newCondition();
+		cond.likeAnywhere("username", log.getUsername());
+		cond.likeAnywhere("ip", log.getIp());
+		cond.likeAnywhere("operation", log.getName());
+		cond.eq("logType", log.getLogType());
+		cond.gt("createTime", log.getStartTime());
+		if (StringUtils.isNotBlank(log.getEndTime())) {
+			cond.lt("createTime", log.getEndTime() + " 23:59:59");
+		}
+
+		cond.page(pageBean);
+		cond.orderByDesc("createTime");
+
+		// 查询所有权限，并放入会话
+		pageBean = logService.findPageByCond(cond);
+
+		model.addAttribute("log", log);
+		model.addAttribute("pageBean", pageBean);
+
+		return "admin/log/log_list";
+	}
+
+	/**
+	 * 删除
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping("log_delete")
+	public void delete(Long id, Writer writer) throws IOException {
+		logService.deleteById(id);
+		writer.write(Constants.OK_FLAG);
+	}
 }
