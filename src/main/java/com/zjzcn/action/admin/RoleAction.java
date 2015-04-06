@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zjzcn.Constants;
-import com.zjzcn.bean.Menu;
-import com.zjzcn.common.ConfigManager;
+import com.zjzcn.action.BaseAction;
 import com.zjzcn.entity.Role;
+import com.zjzcn.helper.config.ConfigHelper;
+import com.zjzcn.helper.config.MenuNode;
+import com.zjzcn.helper.query.Page;
+import com.zjzcn.helper.query.QueryFilter;
 import com.zjzcn.service.RoleService;
 import com.zjzcn.util.StringUtils;
-import com.zjzcn.util.query.Condition;
-import com.zjzcn.util.query.PageBean;
 
 /**
  * @className:RoleManageAction.java
@@ -33,7 +32,7 @@ import com.zjzcn.util.query.PageBean;
  */
 @Controller
 @RequestMapping("admin")
-public class RoleAction {
+public class RoleAction extends BaseAction{
 	@Autowired
 	private RoleService roleService;
 
@@ -41,15 +40,14 @@ public class RoleAction {
 	 * 查找所有的角色
 	 */
 	@RequestMapping("role_list")
-	public String list(Role role, PageBean<Role> pageBean,
-			HttpServletRequest request, ModelMap model) {
-		Condition cond = Condition.newCondition();
-		cond.likeAnywhere("name", role.getName());
-		cond.eq("isSuper", role.getIsSuper());
-		cond.page(pageBean);
+	public String list(Role role, Page<Role> pageBean, ModelMap model) {
+		QueryFilter filter = QueryFilter.newFilter();
+		filter.likeAnywhere("name", role.getName());
+		filter.eq("isSuper", role.getIsSuper());
+		filter.page(pageBean);
 
 		// 查询所有权限，并放入会话
-		pageBean = roleService.findPageByCond(cond);
+		pageBean = roleService.findPageByFilter(filter);
 		model.addAttribute("pageBean", pageBean);
 
 		// 设置页面搜索初始值
@@ -59,8 +57,8 @@ public class RoleAction {
 	}
 
 	@RequestMapping("role_add")
-	public String role_add(HttpServletRequest request, ModelMap model) {
-		String json = createJsonTree(ConfigManager.getMenuList(), null);
+	public String role_add(ModelMap model) {
+		String json = createJsonTree(ConfigHelper.getMenuList(), null);
 
 		model.addAttribute("menus", json);
 		return "admin/role/role_add";
@@ -89,7 +87,7 @@ public class RoleAction {
 	public String role_edit(Long id, ModelMap model) {
 		Role role = roleService.findById(id);
 
-		String json = createJsonTree(ConfigManager.getMenuList(),
+		String json = createJsonTree(ConfigHelper.getMenuList(),
 				role.getPermissions());
 
 		model.addAttribute("menus", json);
@@ -142,13 +140,13 @@ public class RoleAction {
 	 * @author zhangjz
 	 * @param this.getRequest()
 	 */
-	private String createJsonTree(List<Menu> menus, Set<String> authzSet) {
+	private String createJsonTree(List<MenuNode> menus, Set<String> authzSet) {
 		JSONArray jsArr = new JSONArray();
 
-		Set<Menu> permSet = new HashSet<Menu>();
+		Set<MenuNode> permSet = new HashSet<MenuNode>();
 		if (authzSet != null) {
 			for (String perm : authzSet) {
-				for (Menu menu : menus) {
+				for (MenuNode menu : menus) {
 					if (menu.isPerm() && perm.equals(menu.getUrl())) {
 						permSet.add(menu);
 					}
@@ -157,17 +155,17 @@ public class RoleAction {
 		}
 
 		Set<String> menuCodes = new HashSet<String>();
-		for (Menu perm : permSet) {
+		for (MenuNode perm : permSet) {
 			menuCodes.add(perm.getId());
 
-			Menu pMenu = perm.getParent();
+			MenuNode pMenu = perm.getParent();
 			while (pMenu != null) {
 				menuCodes.add(pMenu.getId());
 				pMenu = pMenu.getParent();
 			}
 		}
 
-		for (Menu menu : menus) {
+		for (MenuNode menu : menus) {
 			try {
 				JSONObject jsObj = new JSONObject();
 				jsObj.put("id", menu.getId());

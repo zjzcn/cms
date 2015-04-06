@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:cache="http://www.springframework.org/schema/cache" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"	
+	default-lazy-init="true">
+	
+	<context:property-placeholder location="classpath*:/config.properties" ignore-resource-not-found="true" ignore-unresolvable="true" />
+	<context:component-scan base-package="com.zjzcn">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<import resource="classpath*:/spring/spring-shiro.xml"/>
+	
+   	<!-- 配置连接池 c3p0连接池
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialPoolSize" value="${c3p0.initial_pool_size}" />
+		<property name="minPoolSize" value="${c3p0.min_pool_size}" />
+		<property name="maxPoolSize" value="${c3p0.max_pool_size}" />
+		<property name="maxIdleTime" value="${c3p0.max_idle_time}" />
+		<property name="acquireIncrement" value="${c3p0.acquire_increment}" />
+		<property name="checkoutTimeout" value="${c3p0.checkout_timeout}" />
+	</bean>	-->
+
+	<!-- apache dbcp连接池配置-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="${dbcp.maxActive}"/>
+		<property name="maxIdle" value="${dbcp.maxIdle}"/>
+		<property name="maxWait" value="${dbcp.maxWait}"/>
+		<property name="initialSize" value="${dbcp.initialSize}"/>
+		<property name="removeAbandonedTimeout" value="${dbcp.removeAbandonedTimeout}"/>
+		<property name="validationQuery" value="${dbcp.validationQuery}"/>
+		<property name="testOnBorrow" value="${dbcp.testOnBorrow}"/>
+	</bean>
+
+   <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        <property name="packagesToScan" value="com.zjzcn.entity"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+	<!-- 配置事务的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 那些类的哪些方法参与事务 -->
+	<aop:config>
+		<aop:pointcut id="txPointCut" expression="execution(* com.zjzcn.service.impl.*.*(..))"/>
+		<aop:advisor pointcut-ref="txPointCut" advice-ref="txAdvice" />
+	</aop:config>
+	
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+				<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
+				<prop key="mail.smtp.starttls.enable">${mail.smtp.starttls.enable}</prop>
+				<!--
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				-->
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPaths" value="/template" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="defaultEncoding">UTF-8</prop>
+				<prop key="url_escaping_charset">${url_escaping_charset}</prop>
+				<prop key="locale">${locale}</prop>
+				<prop key="template_update_delay">0</prop>
+				<prop key="tag_syntax">auto_detect</prop>
+				<prop key="whitespace_stripping">true</prop>
+				<prop key="classic_compatible">true</prop>
+				<prop key="number_format">0.######</prop>
+				<prop key="boolean_format">true,false</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="time_format">HH:mm:ss</prop>
+				<prop key="object_wrapper">freemarker.ext.beans.BeansWrapper</prop>
+				<prop key="auto_import">/admin/include/macro.ftl as m</prop>
+			</props>
+		</property>
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="systemName" value="${system.name}" />
+				<entry key="systemVersion" value="${system.version}" />
+				<entry key="systemDescription" value="${system.description}" />
+				<entry key="systemShowPowered" value="${system.show_powered}" />
+				<entry key="base" value="#{servletContext.contextPath}" />
+				<entry>
+					<key><value>shiro</value></key>
+					<bean class="com.zjzcn.web.tag.freemarker.ShiroTags"></bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<cache:annotation-driven cache-manager="cacheManager" />
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:/ehcache.xml" />
+		<property name="shared" value="true" />
+	</bean>
+
+</beans>

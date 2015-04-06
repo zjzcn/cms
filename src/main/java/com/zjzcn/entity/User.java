@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Lazy;
+
 
 /**
  * @author zhangjz
@@ -56,7 +58,7 @@ public class User extends BaseEntity
     @Column(name="is_disabled")
     private Integer isDisabled;//用户状态  0：可用  1：禁用 
 
-    @ManyToMany(cascade={CascadeType.MERGE,CascadeType.REFRESH},fetch=FetchType.LAZY)
+    @ManyToMany(cascade={CascadeType.MERGE,CascadeType.REFRESH},fetch=FetchType.EAGER)
     @JoinTable(name="tb_user_role",inverseJoinColumns={@JoinColumn(name="role_id")},joinColumns={@JoinColumn(name="user_id")})
     private Set<Role> roles=new HashSet<Role>(0);
     

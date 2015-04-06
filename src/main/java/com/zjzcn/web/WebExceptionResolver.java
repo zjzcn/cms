@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zjzcn.auth.UserManager;
 import com.zjzcn.entity.Log;
 import com.zjzcn.service.LogService;
 import com.zjzcn.service.UserService;
@@ -21,7 +22,7 @@ public class WebExceptionResolver implements HandlerExceptionResolver
     @Autowired
 	private LogService logService;
 	@Autowired
-	private UserService userService;
+	private UserManager userService;
     
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object object,  Exception e)
     {

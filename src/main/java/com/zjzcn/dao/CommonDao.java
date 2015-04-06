@@ -1,4 +1,4 @@
-package com.zjzcn.service;
+package com.zjzcn.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import com.zjzcn.helper.query.Page;
 import com.zjzcn.helper.query.QueryFilter;
 
-public interface BaseService<T> {
+public interface CommonDao<T> {
 
 	/* ===================保存和批量保存========================== */
 	Serializable save(T obj);
@@ -16,7 +16,7 @@ public interface BaseService<T> {
 	/* ===================删除和批量删除========================== */
 	void delete(T obj);
 
-	void deleteById(Serializable id);
+	void deleteById(Serializable id, Class<T> clazz);
 
 	void deleteBatch(List<T> list);
 
@@ -28,23 +28,23 @@ public interface BaseService<T> {
 	void merge(T obj);
 
 	/* ===================通过主键查询========================== */
-	T findById(Serializable id);
+	T findById(Serializable id, Class<T> clazz);
 
 	/* ===================通过filter查询========================== */
-	T findByFilter(QueryFilter filter);
+	T findByFilter(QueryFilter filter, Class<T> clazz);
 
-	List<T> findListByFilter(QueryFilter filter);
+	List<T> findListByFilter(QueryFilter filter, Class<T> clazz);
 
-	Page<T> findPageByFilter(QueryFilter filter);
+	Page<T> findPageByFilter(QueryFilter filter, Class<T> clazz);
 
-	public long count(QueryFilter filter);
+	public long count(QueryFilter filter, Class<T> clazz);
 
 	/* ===================通过HQL查询========================== */
 	public T findByHql(String hql, List<Object> paramList);
 
 	public List<T> findListByHql(String hql, List<Object> paramList);
 
-	public Page<T> findPageByHql(String hql, List<?> paramList, Page<T> page);
+	public Page<T> findPageByHql(final String hql, final List<?> paramList, final Page<T> page);
 
 	/* ===================通过SQL查询和执行========================== */
 	public void executeSql(final String sql, final List<Object> paramList);

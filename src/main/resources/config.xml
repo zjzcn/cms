@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-	<log name="用户登陆" url="doLogin" />
+	<logs>
+		<log name="用户登陆" url="doLogin"/>
+		<log name="用户-保存" url="user_save"/>
+		<log name="用户-更新" url="user_update"/>
+		<log name="用户-分配角色" url="user_doAllocRole"/>
+	</logs>
 	
 	<menu name="总菜单">
 		<menu name="系统管理">
@@ -8,12 +13,12 @@
 				<perm name="用户-列表" url="user_list"/>
 				<perm name="用户-新增" url="user_add"/>
 				<perm name="用户-是否存在" url="user_exist"/>
-				<perm name="用户-保存" url="user_save" log="true"/>
+				<perm name="用户-保存" url="user_save"/>
 				<perm name="用户-修改" url="user_edit"/>
-				<perm name="用户-更新" url="user_update" log="true"/>
+				<perm name="用户-更新" url="user_update"/>
 				<perm name="用户-删除" url="user_delete"/>
 				<perm name="用户-分配角色-页面" url="user_allocRole"/>
-				<perm name="用户-分配角色" url="user_doAllocRole" log="true"/>
+				<perm name="用户-分配角色" url="user_doAllocRole"/>
 				<perm name="用户-重置密码" url="user_resetPwd"/>
 				<perm name="自己-修改信息-页面" url="self_changeInfo"/>
 				<perm name="自己-修改信息" url="self_doChangeInfo"/>
