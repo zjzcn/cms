@@ -36,7 +36,7 @@
 <div style="margin:10px">
 	<table class="field-box">
 			<tr class="box-title"><th colspan="50"><span class="edit-icon">个人信息</span></th></tr>
-		      <form id="pForm" action='${base}/admin/self_doChangeInfo.do' method="post">
+		      <form id="pForm" action='${ctx}/admin/self_doChangeInfo.do' method="post">
 		      	  <input type="hidden" name="id" value="${user.id}"/>
 		          <tr>
 			         <th width="150px">登录名：</th>

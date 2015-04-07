@@ -125,7 +125,7 @@
 				<entry key="systemVersion" value="${system.version}" />
 				<entry key="systemDescription" value="${system.description}" />
 				<entry key="systemShowPowered" value="${system.show_powered}" />
-				<entry key="base" value="#{servletContext.contextPath}" />
+				<entry key="ctx" value="#{servletContext.contextPath}" />
 				<entry>
 					<key><value>shiro</value></key>
 					<bean class="com.zjzcn.web.tag.freemarker.ShiroTags"></bean>

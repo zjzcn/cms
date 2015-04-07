@@ -84,9 +84,9 @@ public class LoginAction extends BaseAction {
 		return "admin/common/unauthz";
 	}
 
-	@RequestMapping("index")
+	@RequestMapping("overview")
 	public String index() {
-		return "admin/index";
+		return "admin/overview";
 	}
 
 	/**

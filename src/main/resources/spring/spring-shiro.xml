@@ -24,7 +24,7 @@
 				
 				/admin/logout.do = authc
 				/admin/main.do = authc
-				/admin/index.do = authc
+				/admin/overview.do = authc
 
 				/admin/** = wperm
 			</value>

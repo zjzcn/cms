@@ -8,7 +8,7 @@
 <body>
 <div class="swap">
 	<table class="field-box">
-		<form id="pForm" method="post" action="${base}/admin/role_save.do">
+		<form id="pForm" method="post" action="${ctx}/admin/role_save.do">
 		<input type="hidden" id="permUrl" name="urls"/>      	
 		<tr class="box-title"><th colspan="50"><span class="edit-icon">角色信息</span></th></tr>
 		<tr>

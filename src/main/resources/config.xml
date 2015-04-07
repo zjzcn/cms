@@ -8,7 +8,7 @@
 	</logs>
 	
 	<menu name="总菜单">
-		<menu name="系统管理">
+		<menu name="用户管理">
 			<menu name="用户管理" url="user_list">
 				<perm name="用户-列表" url="user_list"/>
 				<perm name="用户-新增" url="user_add"/>
@@ -32,11 +32,61 @@
 				<perm name="角色-修改" url="role_edit"/>
 				<perm name="角色-更新" url="role_update"/>
 				<perm name="角色-删除" url="role_delete"/>
+			</menu>		
+		</menu>
+		<menu name="系统管理">
+			<menu name="字典管理" url="user_list">
+				<perm name="用户-列表" url="user_list"/>
+				<perm name="用户-新增" url="user_add"/>
+				<perm name="用户-是否存在" url="user_exist"/>
+				<perm name="用户-保存" url="user_save"/>
+			</menu>
+			<menu name="配置管理" url="role_list">
+				<perm name="角色-列表" url="role_list"/>
+				<perm name="角色-新增" url="role_add"/>
+				<perm name="角色-保存" url="role_save" log="true"/>
+				<perm name="角色-修改" url="role_edit"/>
+				<perm name="角色-更新" url="role_update"/>
+				<perm name="角色-删除" url="role_delete"/>
 			</menu>
 			<menu name="日志管理" url="log_list">
 				<perm name="日志-列表" url="log_list"/>
 				<perm name="日志-删除" url="log_delete"/>
 			</menu>			
+		</menu>
+		<menu name="内容管理">
+			<menu name="栏目管理" url="log_list">
+				<perm name="日志-列表" url="log_list"/>
+				<perm name="日志-删除" url="log_delete"/>
+			</menu>
+			<menu name="内容管理" url="log_list">
+				<perm name="日志-列表" url="log_list"/>
+				<perm name="日志-删除" url="log_delete"/>
+			</menu>				
+		</menu>
+		<menu name="流程管理">
+			<menu name="由我发起" url="log_list">
+				<perm name="日志-列表" url="log_list"/>
+				<perm name="日志-删除" url="log_delete"/>
+			</menu>
+			<menu name="我的代办" url="log_list">
+				<perm name="日志-列表" url="log_list"/>
+				<perm name="日志-删除" url="log_delete"/>
+			</menu>
+			<menu name="添加流程" url="log_list">
+				<perm name="日志-列表" url="log_list"/>
+				<perm name="日志-删除" url="log_delete"/>
+			</menu>				
+		</menu>
+		<menu name="统计信息">
+			<menu name="会员注册统计" url="log_list">
+				<perm name="日志-列表" url="log_list"/>
+				<perm name="日志-删除" url="log_delete"/>
+			</menu>
+			<menu name="互动统计" url="log_list">
+				<perm name="日志-列表" url="log_list"/>
+				<perm name="日志-删除" url="log_delete"/>
+			</menu>				
 		</menu>
 	</menu>
 </config>

@@ -9,7 +9,7 @@
 <div style="margin:10px">
 	<table class="field-box">
 			<tr class="box-title"><th colspan="50"><span class="edit-icon">角色信息</span></th></tr>
-		   	<form id="pForm" method="post" action="${base}/admin/role_update.do">
+		   	<form id="pForm" method="post" action="${ctx}/admin/role_update.do">
 		      	<input type="hidden" id="permUrl" name="urls"/>
 		      	<input type="hidden" name="id" value="${role.id}"/>
 		        <tr>

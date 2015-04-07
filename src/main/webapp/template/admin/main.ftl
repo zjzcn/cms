@@ -3,15 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>网站内容管理系统</title>
-<link href="${base}/resourse/admin/css/base.css" rel="stylesheet" type="text/css"/>
-<link href="${base}/resourse/admin/css/common.css" rel="stylesheet" type="text/css"/>
-<link href="${base}/resourse/admin/css/main.css" rel="stylesheet" type="text/css"/>
-
-<script src="${base}/resourse/admin/js/jquery-1.7.2.js" type="text/javascript"></script>
-<script type="text/javascript" src="${base}/resourse/admin/js/lhgdialog/lhgdialog.js?skin=myblue&self=false"></script>
-<script type="text/javascript" src="${base}/resourse/admin/js/pop.js"></script>
-<link type="text/css" rel="stylesheet" href="${base}/resourse/admin/js/msgbox/css/msgbox.css" />
-<script type="text/javascript" src="${base}/resourse/admin/js/msgbox/msgbox.js"></script>
+<#include "/admin/include/common.ftl"/>
 <script type="text/javascript">
 	//初始化窗口大小
 	$(function () {
@@ -113,7 +105,7 @@
 			resize: false,
 			parent: parent || null,
 			ok: function() {
-				window.location.replace("${base}/admin/logout.do");
+				window.location.replace("${ctx}/admin/logout.do");
 				},
 			cancel: function() {}
 		});
@@ -121,12 +113,12 @@
 		
 	function self_changeInfo()
 	{
-		Pop.window("${base}/admin/self_changeInfo.do", 600, 350, "修改个人信息", 3000);
+		Pop.window("${ctx}/admin/self_changeInfo.do", 600, 350, "修改个人信息", 3000);
 	}
 	
 	function self_changePwd()
 	{
-		Pop.window("${base}/admin/self_changePwd.do", 400, 230, "修改密码", 3000);
+		Pop.window("${ctx}/admin/self_changePwd.do", 400, 230, "修改密码", 3000);
 	}
 	
 </script>
@@ -137,11 +129,11 @@
 		<span class="mr20">您好，admin!</span>
 		<a class="mr20" href="javascript:self_changeInfo();">修改个人信息</a>
 		<a class="mr20" href="javascript:self_changePwd();">修改密码</a>
-		<a class="mr20" href="${base}/admin/index.do" onclick="$('.nav_info').html('系统首页');" target='iframe'>系统首页</a>
+		<a class="mr20" href="${ctx}/admin/overview.do" onclick="$('.nav_info').html('系统首页');" target='iframe'>系统首页</a>
 		<a href="javascript:logout();">退出</a>
 	</div>
 	<div class="admin_logo">
-		<img src="${base}/resourse/admin/images/admin_logo.jpg">
+		<img src="${ctx}/resourse/admin/images/admin_logo.jpg">
 	</div>
 	<!--
 	<div class="top_nav">
@@ -164,15 +156,7 @@
 	<div class="left_title"><i class="icons"></i><span>${menu.name}</span></div>
 	<ul class="side">
 	<#list menu.children as childMenu>
-	   <li><a href="${base}/admin/${childMenu.url}.do" target="iframe" <#if (childMenu_index==0)>class="selected"</#if>>${childMenu.name}</a></li>
-	</#list> 
-	</ul>
-	</#list>
-		<#list menus as menu>
-	<div class="left_title"><i class="icons"></i>${menu.name}</div>
-	<ul class="side">
-	<#list menu.children as childMenu>
-	   <li><a href="${base}/admin/${childMenu.url}.do" target="iframe" <#if (childMenu_index==0)>class="selected"</#if>>${childMenu.name}</a></li>
+	   <li><a href="${ctx}/admin/${childMenu.url}.do" target="iframe" <#if (childMenu_index==0)>class="selected"</#if>>${childMenu.name}</a></li>
 	</#list> 
 	</ul>
 	</#list>
@@ -183,7 +167,7 @@
 <div class="right">
 	<div class="nav_info">系统首页</div>
 	<p class="line"></p>
-	<iframe style="overflow:visible" id="main" name="iframe" src="${base}/admin/index.do" frameBorder=0 width="100%" scrolling="yes" height="100%"></iframe>
+	<iframe style="overflow:visible" id="main" name="iframe" src="${ctx}/admin/overview.do" frameBorder=0 width="100%" scrolling="yes" height="100%"></iframe>
 </div>
 </div>
 </body>

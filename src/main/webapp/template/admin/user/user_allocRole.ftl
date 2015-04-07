@@ -21,7 +21,7 @@
            	        $.ajax({
            	        type:'post',
            	        dataType:'text',async: false,
-           	        url:'${base}/admin/user_doAllocRole.do',
+           	        url:'${ctx}/admin/user_doAllocRole.do',
                     data:{id:${userId}, roleCodes:roleCodes},
                     success: function(json) {
                        if(json == "success")
