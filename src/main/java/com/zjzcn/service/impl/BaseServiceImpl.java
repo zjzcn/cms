@@ -1,7 +1,6 @@
 package com.zjzcn.service.impl;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import com.zjzcn.dao.CommonDao;
 import com.zjzcn.helper.query.Page;
 import com.zjzcn.helper.query.QueryFilter;
 import com.zjzcn.service.BaseService;
+import com.zjzcn.util.ReflectionUtils;
 
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	
@@ -20,8 +20,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	@Autowired
 	private CommonDao<T> commonDao;
 
-	@SuppressWarnings("unchecked")
-	private Class<T> clazz = (Class<T>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	private Class<T> clazz = ReflectionUtils.getSuperClassGenricType(getClass());
 	
 	/* ===================保存和批量保存========================== */
 	public Serializable save(T obj) {
