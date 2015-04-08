@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.zjzcn.helper.query.filer.OrderbyFilter;
 import com.zjzcn.helper.query.filer.PageFilter;
 import com.zjzcn.helper.query.filer.Filter;
@@ -287,44 +289,34 @@ public class QueryFilter {
 		StringBuilder hqlBuilder = new StringBuilder();
 		List<Object> paramList = new ArrayList<Object>();
 
-		// 获取类名
-		String className = getShortClassName(clazz.getName());
-
-		hqlBuilder.append(" from ").append(className).append(" where 1=1");
-
+		StringBuilder whereBuilder = new StringBuilder();
+		StringBuffer orderbyBuilder = new StringBuffer();
+		Page<?> page = null;
 		// 遍历参数，组合where和参数
 		for (Filter filter : filers) {
 			if (filter instanceof WhereFilter) {
-				WhereFilter where = (WhereFilter) filter;
-
-				hqlBuilder.append(" and ").append(where.toQueryString());
-				paramList.addAll(where.getParamList());
-			}
-		}
-
-		// 遍历参数，组合order by
-		String orderby = "";
-		StringBuffer orderbyAfter = new StringBuffer();
-		for (Filter filter : filers) {
-			if (filter instanceof OrderbyFilter) {
-				orderby = " order by ";
-				orderbyAfter.append(filter.toQueryString()).append(", ");
-			}
-		}
-		hqlBuilder.append(orderby).append(orderbyAfter);
-		String hql = hqlBuilder.toString();
-		if (hql.endsWith(", ")) {
-			hql = hql.substring(0, hql.lastIndexOf(","));
-		}
-
-		Page<?> page = null;
-		for (Filter filter : filers) {
-			if (filter instanceof PageFilter) {
+				WhereFilter whereFilter = (WhereFilter) filter;
+				whereBuilder.append(" and ").append(whereFilter.toQueryString());
+				paramList.addAll(whereFilter.getParamList());
+			} else if (filter instanceof OrderbyFilter) {
+				orderbyBuilder.append(filter.toQueryString()).append(", ");
+			} else if (filter instanceof PageFilter) {
 				page = ((PageFilter) filter).getPage();
 			}
 		}
+		hqlBuilder.append(" from ").append(getShortClassName(clazz.getName())).append(" where 1=1")
+				.append(whereBuilder).append(orderbyBuilder.length() > 0 ? " order by " : " ")
+				.append(StringUtils.removeEnd(orderbyBuilder.toString(), ", "));
+		int i = 0;
+		for (int idx = 0; idx != -1; i++) {
+			idx = hqlBuilder.indexOf("?", idx + 1);
+			if (idx != -1) {
+				hqlBuilder.insert(idx + 1, i);
+			}
+		}
 
-		return new Object[] { hql, paramList, page };
+		return new Object[] { hqlBuilder.toString(), paramList, page };
+
 	}
 
 	/************************ private *************************/

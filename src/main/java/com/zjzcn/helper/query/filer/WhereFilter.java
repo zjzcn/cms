@@ -140,17 +140,6 @@ public class WhereFilter implements Filter {
 		default: {
 		}
 		}
-		int i = 0;
-		for (int idx = 0; idx != -1; i++) {
-			idx = hqlBuilder.indexOf("?", idx + 1);
-			if (idx != -1) {
-				hqlBuilder.insert(idx + 1, i);
-			}
-		}
-		if (paramList.size() != i - 1) {
-			throw new RuntimeException("Hql ? number is " + (i - 1) + ", paramList.size is " + paramList + ", hql:"
-					+ hqlBuilder);
-		}
 		return hqlBuilder.toString();
 	}
 
