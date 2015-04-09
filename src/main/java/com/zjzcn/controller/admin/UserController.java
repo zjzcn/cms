@@ -1,4 +1,4 @@
-package com.zjzcn.action.admin;
+package com.zjzcn.controller.admin;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -15,8 +15,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zjzcn.Constants;
-import com.zjzcn.action.BaseAction;
 import com.zjzcn.auth.UserManager;
+import com.zjzcn.controller.BaseAction;
 import com.zjzcn.entity.Role;
 import com.zjzcn.entity.User;
 import com.zjzcn.helper.query.Page;
@@ -35,7 +35,7 @@ import com.zjzcn.util.StringUtils;
  */
 @Controller
 @RequestMapping("admin")
-public class UserAction extends BaseAction {
+public class UserController extends BaseAction {
 	@Autowired
 	private UserService userService;
 	@Autowired

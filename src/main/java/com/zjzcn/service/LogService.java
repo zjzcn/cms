@@ -7,9 +7,5 @@ import com.zjzcn.service.LogService;
 
 @Service
 public class LogService extends BaseService<Log> {
-public static void main(String[] args) {
-	LogService a = new LogService();
-	System.out.println(a);
-	
-}
+
 }

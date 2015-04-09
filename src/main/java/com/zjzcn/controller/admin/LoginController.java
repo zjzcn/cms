@@ -1,4 +1,4 @@
-package com.zjzcn.action.admin;
+package com.zjzcn.controller.admin;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -18,8 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.zjzcn.action.BaseAction;
 import com.zjzcn.auth.UserManager;
+import com.zjzcn.controller.BaseAction;
 import com.zjzcn.helper.config.MenuNode;
 import com.zjzcn.util.Captcha;
 
@@ -30,7 +30,7 @@ import com.zjzcn.util.Captcha;
  */
 @Controller
 @RequestMapping("admin")
-public class LoginAction extends BaseAction {
+public class LoginController extends BaseAction {
 	@Autowired
 	private UserManager userManager;
 

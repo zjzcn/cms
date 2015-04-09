@@ -1,4 +1,4 @@
-package com.zjzcn.action;
+package com.zjzcn.controller;
 
 
 public class BaseAction{
