@@ -19,7 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zjzcn.auth.UserManager;
-import com.zjzcn.controller.BaseAction;
+import com.zjzcn.controller.BaseController;
 import com.zjzcn.helper.config.MenuNode;
 import com.zjzcn.util.Captcha;
 
@@ -30,7 +30,7 @@ import com.zjzcn.util.Captcha;
  */
 @Controller
 @RequestMapping("admin")
-public class LoginController extends BaseAction {
+public class LoginController extends BaseController {
 	@Autowired
 	private UserManager userManager;
 

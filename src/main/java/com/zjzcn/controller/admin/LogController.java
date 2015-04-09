@@ -11,7 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zjzcn.Constants;
-import com.zjzcn.controller.BaseAction;
+import com.zjzcn.controller.BaseController;
 import com.zjzcn.entity.Log;
 import com.zjzcn.helper.query.Page;
 import com.zjzcn.helper.query.QueryFilter;
@@ -25,7 +25,7 @@ import com.zjzcn.util.StringUtils;
  */
 @Controller
 @RequestMapping("admin")
-public class LogController extends BaseAction {
+public class LogController extends BaseController {
 	@Autowired
 	private LogService logService;
 

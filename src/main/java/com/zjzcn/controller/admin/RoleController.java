@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zjzcn.Constants;
-import com.zjzcn.controller.BaseAction;
+import com.zjzcn.controller.BaseController;
 import com.zjzcn.entity.Role;
 import com.zjzcn.helper.config.ConfigHelper;
 import com.zjzcn.helper.config.MenuNode;
@@ -32,7 +32,7 @@ import com.zjzcn.util.StringUtils;
  */
 @Controller
 @RequestMapping("admin")
-public class RoleController extends BaseAction{
+public class RoleController extends BaseController{
 	@Autowired
 	private RoleService roleService;
 
