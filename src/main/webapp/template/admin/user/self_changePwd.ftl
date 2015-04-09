@@ -51,7 +51,7 @@ input[type="password"] {width:180px; padding:4px;}
 			type: "POST",
 			async: true,
 			cache:false,
-			url: "${base}/admin/self_doChangePwd.do",
+			url: "${ctx}/admin/self_doChangePwd.do",
 			data: {password:name,newpassword:pwd},
 			dataType: "text",
 			success: function(data){

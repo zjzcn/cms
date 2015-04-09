@@ -8,7 +8,7 @@
 <body>
 <div class="swap">
 	<table class="list-box">
-		<form id="pForm" method="post" action="${base}/admin/log_list.do">	
+		<form id="pForm" method="post" action="${ctx}/admin/log_list.do">	
 		<input type="hidden" name="pageNo" value="${pageBean.pageNo}"/>
 		<input type="hidden" name="orderProperty" value="${pageBean.orderProperty}"/>
 		<input type="hidden" name="orderDirection" value="${pageBean.orderDirection}"/>
@@ -84,7 +84,7 @@
 	function log_delete(id)
 	{
 	   	Pop.confirm("确定要删除日志吗?", function() {
-			var url = "${base}/admin/log_delete.do";
+			var url = "${ctx}/admin/log_delete.do";
 			$.ajax( {
 				type : 'get',
 				dataType : 'text',

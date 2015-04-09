@@ -16,9 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.zjzcn.bean.LogConfig;
-import com.zjzcn.common.ConfigManager;
+import com.zjzcn.auth.UserManager;
 import com.zjzcn.entity.Log;
+import com.zjzcn.helper.config.ConfigHelper;
+import com.zjzcn.helper.config.LogNode;
 import com.zjzcn.service.LogService;
 import com.zjzcn.service.UserService;
 import com.zjzcn.util.DateUtils;
@@ -41,11 +42,11 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private LogService logService;
 	@Autowired
-	private UserService userService;
+	private UserManager userService;
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		Map<String, LogConfig> logConfigs = ConfigManager.getLogConfigs();
+		Map<String, LogNode> logConfigs = ConfigHelper.getLogConfigs();
 		String username = userService.getCurrentUsername();
 		if (logConfigs != null && StringUtils.isNotBlank(username)) {
 			HttpServletRequest req = (HttpServletRequest)request;
@@ -73,7 +74,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 						}
 					}
 				}
-				LogConfig logConfig = logConfigs.get(perm);
+				LogNode logConfig = logConfigs.get(perm);
 				Log log = new Log();
 				log.setLogType(0);
 				log.setName(logConfig.getName());

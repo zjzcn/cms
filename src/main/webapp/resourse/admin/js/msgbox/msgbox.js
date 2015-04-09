@@ -18,7 +18,7 @@
         message: '',                //同上
         timeOut: 3000,              //多长时间之后消失
         beforeHide: null            //消失前执行的方法
-    }
+    };
 
     $.msgbox.show = function(p){
         p = $.extend({}, $.msgbox.defaults, p || {});
@@ -112,5 +112,5 @@
         f.show();
 
 		return $('#m_mgbox');
-    }
+    };
 })(jQuery)

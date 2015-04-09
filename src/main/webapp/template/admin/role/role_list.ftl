@@ -8,7 +8,7 @@
 <body>
 <div class="swap">	      	
 	<table class="list-box">
-		<form id="pForm" method="post" action="${base}/admin/role_list.do">	
+		<form id="pForm" method="post" action="${ctx}/admin/role_list.do">	
 		<input type="hidden" name="pageNo" value="${pageBean.pageNo}"/>
 		<input type="hidden" name="orderProperty" value="${pageBean.orderProperty}"/>
 		<input type="hidden" name="orderDirection" value="${pageBean.orderDirection}"/>
@@ -120,18 +120,18 @@
 		
 	function role_add()
 	{
-		Pop.window("${base}/admin/role_add.do", 800, 500, "新增角色", 3000);
+		Pop.window("${ctx}/admin/role_add.do", 800, 500, "新增角色", 3000);
 	}
 	
 	function role_edit(id)
 	{
-		Pop.window("${base}/admin/role_edit.do?id="+id, 800, 500, "修改角色", 3000);
+		Pop.window("${ctx}/admin/role_edit.do?id="+id, 800, 500, "修改角色", 3000);
 	}
 	
 	function role_delete(id)
 	{
 	   	Pop.confirm("确定要删除这些记录吗?", function() {
-			var url = "${base}/admin/role_delete.do";
+			var url = "${ctx}/admin/role_delete.do";
 			$.ajax( {
 				type : 'GET',
 				dataType : 'text',

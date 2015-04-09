@@ -9,7 +9,7 @@
 <body>
 <div class="swap">
 	<table class="list-box">
-		<form id="pForm" method="post" action="${base}/admin/user_list.do">	
+		<form id="pForm" method="post" action="${ctx}/admin/user_list.do">	
 		<input type="hidden" name="pageNo" value="${pageBean.pageNo}"/>
 		<input type="hidden" name="orderProperty" value="${pageBean.orderProperty}"/>
 		<input type="hidden" name="orderDirection" value="${pageBean.orderDirection}"/>
@@ -129,23 +129,23 @@
 	
    function toAdd()
    {
-   	Pop.window("${base}/admin/user_add.do", 700, 420, "新增用户", 3000);
+   	Pop.window("${ctx}/admin/user_add.do", 700, 420, "新增用户", 3000);
    }
 
    function user_edit(id)
    {
-   	Pop.window("${base}/admin/user_edit.do?id="+id, 700, 420, "修改用户", 3000);
+   	Pop.window("${ctx}/admin/user_edit.do?id="+id, 700, 420, "修改用户", 3000);
    }
    
    function user_selectRole(id)
    {
-   	Pop.window("${base}/admin/user_allocRole.do?userId="+id, 700, 420, "角色设置", 3000);
+   	Pop.window("${ctx}/admin/user_allocRole.do?userId="+id, 700, 420, "角色设置", 3000);
    }
    
    function user_resetPwd(id)
    {
    		Pop.confirm("确定要重置该用户的密码吗?", function() {
-			var url = "${base}/admin/user_resetPwd.do";
+			var url = "${ctx}/admin/user_resetPwd.do";
 			$.ajax( {
 				type : 'get',
 				dataType : 'text',
@@ -170,7 +170,7 @@
    function del(id)
    {
 	   	Pop.confirm("确定要删除这些记录吗?", function() {
-			var url = "${base}/admin/user_delete.do";
+			var url = "${ctx}/admin/user_delete.do";
 			$.ajax( {
 				type : 'get',
 				dataType : 'text',

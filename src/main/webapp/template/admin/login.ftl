@@ -6,8 +6,8 @@
 	<meta http-equiv="pragma" content="no-cache" />
 	<meta http-equiv="cache-control" content="no-cache" />
 	<meta http-equiv="expires" content="0" />    
-	<link rel="stylesheet" type="text/css" href="${base}/resourse/admin/css/login.css"></link>
-	<script type="text/javascript" src="${base}/resourse/admin/js/jquery-1.7.2.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/resourse/admin/css/login.css"></link>
+	<script type="text/javascript" src="${ctx}/resourse/admin/js/jquery-1.7.2.js"></script>
 <script type="text/javascript">
 	$(function () {
 	    if(top.location!=self.location)
@@ -31,7 +31,7 @@
 		$('#captcha').val("");
 		$('#captcha')[0].focus();
 		//注意后面必须要加上随机数 否则浏览器不会向服务器发送请求
-		$('#captchaImg').attr('src','${base}/admin/captcha.do?r='+Math.random());
+		$('#captchaImg').attr('src','${ctx}/admin/captcha.do?r='+Math.random());
 	}
 	
 	//登陆
@@ -69,14 +69,14 @@
 			type: "POST",
 			async: true,
 			cache:false,
-			url: '${base}/admin/doLogin.do',
+			url: '${ctx}/admin/doLogin.do',
 			data: {username:name,password:pwd,captcha:code},
 			dataType: "text",
 			success: function(data){
 				$("#login-tip").html('');
 				$("#login-tip").attr('class','');
 				if(data=="0"){
-					window.location.href='${base}/admin/main.do'; 
+					window.location.href='${ctx}/admin/main.do'; 
 				}
 				else
 				{
@@ -139,7 +139,7 @@
 				<div class="field">
 					<label>验证码：</label>
 					<input id="captcha" type="text" class="text" size="10">
-                    <img id="captchaImg" title="看不清？请点击图片更换！" align="absmiddle" src="${base}/admin/captcha.do" onclick="refreshCaptcha();" style="cursor:pointer"/>
+                    <img id="captchaImg" title="看不清？请点击图片更换！" align="absmiddle" src="${ctx}/admin/captcha.do" onclick="refreshCaptcha();" style="cursor:pointer"/>
 				</div>
 				<div class="field">
 					<span id="login-tip"></span>

@@ -34,13 +34,13 @@
 <div style="margin:10px">
 	<table class="field-box">
 			<tr class="box-title"><th colspan="50"><span class="edit-icon">用户信息</span></th></tr>
-		      <form id="pForm" action='${base}/admin/user_save.do' method="post">
+		      <form id="pForm" action='${ctx}/admin/user_save.do' method="post">
 		      	<input type="hidden" name="id"/>
 		          <tr>
 			         <th width="150px"><span class="required">*</span>登陆名：</th>
 			         <td>
 			            <input type="text" name="username"
-			            	valid="{required:true,regex:'username',rangelength:[4,20],ajax:'${base}/admin/user_exist.do',messages:{ajaxError:'登录名已存在'}}"/>
+			            	valid="{required:true,regex:'username',rangelength:[4,20],ajax:'${ctx}/admin/user_exist.do',messages:{ajaxError:'登录名已存在'}}"/>
 			         </td>
 			      </tr>
 		          <tr>

@@ -4,5 +4,5 @@
 	response.setHeader("Cache-Control", "no-cache");
 	response.setHeader("Cache-Control", "no-store");
 	response.setDateHeader("Expires", 0);
-	response.sendRedirect("index.do");
+	response.sendRedirect("portal/index.do");
 %>

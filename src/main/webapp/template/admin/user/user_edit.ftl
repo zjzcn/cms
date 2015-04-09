@@ -33,7 +33,7 @@
 <body>
 <div style="margin:10px">
 	<table class="field-box">
-		<form id="pForm" action='${base}/admin/user_update.do' method="post">
+		<form id="pForm" action='${ctx}/admin/user_update.do' method="post">
 		<input type="hidden" name="id" value="${user.id}"/>
 		<tr class="box-title">
 			<th colspan="50">
