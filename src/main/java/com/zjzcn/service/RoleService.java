@@ -1,9 +1,11 @@
 package com.zjzcn.service;
 
+import org.springframework.stereotype.Service;
+
 import com.zjzcn.entity.Role;
+import com.zjzcn.service.RoleService;
 
-public interface RoleService extends BaseService<Role>{
-
-	/* ==================用户定义自己的Service========================== */
+@Service
+public class RoleService extends BaseService<Role> {
 
 }

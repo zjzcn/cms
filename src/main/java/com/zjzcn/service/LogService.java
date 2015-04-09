@@ -1,9 +1,15 @@
 package com.zjzcn.service;
 
+import org.springframework.stereotype.Service;
+
 import com.zjzcn.entity.Log;
+import com.zjzcn.service.LogService;
 
-public interface LogService extends BaseService<Log>{
-
-	/* ==================用户定义自己的Service========================== */
-
+@Service
+public class LogService extends BaseService<Log> {
+public static void main(String[] args) {
+	LogService a = new LogService();
+	System.out.println(a);
+	
+}
 }

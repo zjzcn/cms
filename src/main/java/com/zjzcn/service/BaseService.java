@@ -3,56 +3,112 @@ package com.zjzcn.service;
 import java.io.Serializable;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.zjzcn.dao.CommonDao;
 import com.zjzcn.helper.query.Page;
 import com.zjzcn.helper.query.QueryFilter;
+import com.zjzcn.service.BaseService;
+import com.zjzcn.util.ReflectionUtils;
 
-public interface BaseService<T> {
+public abstract class BaseService<T> {
+	
+	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private CommonDao<T> commonDao;
 
+	private Class<T> clazz = ReflectionUtils.getSuperClassGenricType(getClass());
+	
 	/* ===================保存和批量保存========================== */
-	Serializable save(T obj);
+	public Serializable save(T obj) {
+		return commonDao.save(obj);
+	}
 
-	void saveBatch(List<T> list);
+	public void saveBatch(List<T> list) {
+		commonDao.saveBatch(list);
+
+	}
 
 	/* ===================删除和批量删除========================== */
-	void delete(T obj);
+	public void delete(T obj) {
+		commonDao.delete(obj);
+	}
 
-	void deleteById(Serializable id);
+	public void deleteById(Serializable id) {
+		commonDao.deleteById(id, clazz);
 
-	void deleteBatch(List<T> list);
+	}
+
+	public void deleteBatch(List<T> list) {
+		commonDao.deleteBatch(list);
+	}
 
 	/* ===================更新和批量更新========================== */
-	void update(T obj);
+	public void update(T obj) {
+		commonDao.update(obj);
+	}
 
-	void updateBatch(List<T> list);
+	public void merge(T obj) {
+		commonDao.merge(obj);
+	}
 
-	void merge(T obj);
+	public void updateBatch(List<T> list) {
+		commonDao.updateBatch(list);
+	}
 
-	/* ===================通过主键查询========================== */
-	T findById(Serializable id);
+	public T findById(Serializable id) {
+		return commonDao.findById(id, clazz);
+	}
 
-	/* ===================通过filter查询========================== */
-	T findByFilter(QueryFilter filter);
+	/* ===================通过Filterition查询========================== */
+	public T findByFilter(QueryFilter filter) {
+		return commonDao.findByFilter(filter, clazz);
+	}
 
-	List<T> findListByFilter(QueryFilter filter);
+	public List<T> findListByFilter(QueryFilter filter) {
+		return commonDao.findListByFilter(filter, clazz);
+	}
 
-	Page<T> findPageByFilter(QueryFilter filter);
+	public Page<T> findPageByFilter(QueryFilter filter) {
+		return commonDao.findPageByFilter(filter, clazz);
+	}
 
-	public long count(QueryFilter filter);
+	public long count(QueryFilter filter) {
+		return commonDao.count(filter, clazz);
+	}
 
 	/* ===================通过HQL查询========================== */
-	public T findByHql(String hql, List<Object> paramList);
+	public T findByHql(String hql, List<Object> paramList) {
+		return commonDao.findByHql(hql, paramList);
+	}
 
-	public List<T> findListByHql(String hql, List<Object> paramList);
+	public List<T> findListByHql(String hql, List<Object> paramList) {
+		return commonDao.findListByHql(hql, paramList);
+	}
 
-	public Page<T> findPageByHql(String hql, List<?> paramList, Page<T> page);
+	public Page<T> findPageByHql(final String hql, final List<?> paramList,
+			final Page<T> pageBean) {
+		return commonDao.findPageByHql(hql, paramList, pageBean);
+	}
 
-	/* ===================通过SQL查询和执行========================== */
-	public void executeSql(final String sql, final List<Object> paramList);
+	/* ===================通过SQL查询========================== */
+	public void executeSql(final String sql, final List<Object> paramList) {
+		commonDao.executeSql(sql, paramList);
+	}
 
-	public Object findBySql(String sql, List<Object> paramList);
+	public Object findBySql(String sql, List<Object> paramList) {
+		return commonDao.findBySql(sql, paramList);
+	}
 
-	public List<?> findListBySql(final String sql, final List<Object> paramList);
+	public List<?> findListBySql(final String sql, final List<Object> paramList) {
+		return commonDao.findListBySql(sql, paramList);
+	}
 
-	public List<T> findListBySql(final String sql, final List<Object> paramList, final Class<T> clazz);
-
+	public List<T> findListBySql(final String sql,
+			final List<Object> paramList, final Class<T> clazz) {
+		return commonDao.findListBySql(sql, paramList, clazz);
+	}
 }

@@ -82,7 +82,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 				log.setCreateTime(DateUtils.getCurrentTime(null));
 				log.setContent(param.toString());
 				log.setIp(request.getRemoteAddr());
-				logService.save(log);
+				//logService.save(log);
 			}
 		}
 	}
