@@ -1,4 +1,4 @@
-package com.zjzcn.action.portal;
+package com.zjzcn.controller.portal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("portal")
-public class IndexAction {
+public class IndexController {
 	/**
 	 * 主页
 	 */
