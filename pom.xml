@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.snakerflow</groupId>
-            <artifactId>snaker-hibernate4</artifactId>
+            <artifactId>snaker-hibernate</artifactId>
             <version>${snaker.version}</version>
         </dependency>
 		<dependency>

@@ -27,8 +27,7 @@ import com.zjzcn.util.DigestUtils;
  * @version 3.0
  */
 public class ShiroDbRealm extends AuthorizingRealm {
-	private static final Logger logger = LoggerFactory
-			.getLogger(ShiroDbRealm.class);
+	private static final Logger logger = LoggerFactory.getLogger(ShiroDbRealm.class);
 
 	@Autowired
 	private UserManager userManager;
@@ -41,8 +40,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 * @return 认证信息
 	 */
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(
-			AuthenticationToken authenticationToken) {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) {
 		UsernamePasswordToken taken = (UsernamePasswordToken) authenticationToken;
 		String username = taken.getUsername();
 		String password = new String(taken.getPassword());
@@ -56,8 +54,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 				throw new DisabledAccountException();
 			}
 
-			if (!DigestUtils.md5Hex(password).equalsIgnoreCase(
-					user.getPassword())) {
+			if (!DigestUtils.md5Hex(password).equalsIgnoreCase(user.getPassword())) {
 				throw new IncorrectCredentialsException();
 			}
 
@@ -75,9 +72,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 * @return 授权信息
 	 */
 	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(
-			PrincipalCollection principals) {
-		Set<String> perms = userManager.getCurrentStringPermissions();
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		Set<String> perms = userManager.getStringPermissions();
 		if (perms == null) {
 			return null;
 		}
@@ -85,7 +81,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		authorizationInfo.addStringPermissions(perms);
 
-		logger.info("User[{}] has permission set:{}", userManager.getUsername(), authorizationInfo.getStringPermissions());
+		logger.info("User[{}] has permission set:{}", userManager.getUsername(),
+				authorizationInfo.getStringPermissions());
 		return authorizationInfo;
 	}
 

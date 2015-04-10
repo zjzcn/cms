@@ -12,13 +12,13 @@
 		<property name="managerService" ref="managerService"/>
 	</bean>
 	
-	<bean id="dbAccess" class="org.snaker.engine.access.hibernate4.Hibernate4Access">
+	<bean id="dbAccess" class="com.zjzcn.dao.Hibernate4Access">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
 	<bean id="processService" class="org.snaker.engine.core.ProcessService">
 		<property name="access" ref="dbAccess"/>
-		<property name="cacheManager" ref="cacheManager"/>
+		<property name="cacheManager" ref="snakerCacheManager"/>
 	</bean>
 	<bean id="orderService" class="org.snaker.engine.core.OrderService">
 		<property name="access" ref="dbAccess"/>
@@ -33,5 +33,5 @@
 		<property name="access" ref="dbAccess"/>
 	</bean>
 	
-	<bean id="cacheManager" class="org.snaker.engine.cache.memory.MemoryCacheManager"/>
+	<bean id="snakerCacheManager" class="org.snaker.engine.cache.memory.MemoryCacheManager"/>
 </beans>

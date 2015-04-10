@@ -49,7 +49,7 @@ public class UserManager {
 		return userDao.findByFilter(filter, User.class);
 	}
 
-	public Set<String> getCurrentStringPermissions() {
+	public Set<String> getStringPermissions() {
 		Set<String> perms = new HashSet<String>();
 		User user = getUser();
 		if (user != null) {
@@ -65,9 +65,9 @@ public class UserManager {
 		return perms;
 	}
 
-	public MenuNode getCurrentMenuTree() {
+	public MenuNode getMenuTree() {
 		return createMenuTree(ConfigHelper.getMenuTree(),
-				getCurrentStringPermissions());
+				getStringPermissions());
 	}
 
 	private MenuNode createMenuTree(MenuNode menu, Collection<String> authzPerms) {

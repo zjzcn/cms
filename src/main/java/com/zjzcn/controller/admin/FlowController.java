@@ -1,19 +1,21 @@
 package com.zjzcn.controller.admin;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.snaker.engine.access.Page;
 import org.snaker.engine.access.QueryFilter;
-import org.snaker.engine.entity.Process;
 import org.snaker.engine.entity.HistoryOrder;
-
-import com.snakerflow.framework.flow.entity.Approval;
-import com.snakerflow.framework.security.shiro.ShiroUtils;
-import com.snakerflow.framework.utils.ConvertUtils;
-import com.snakerflow.framework.flow.service.ApprovalManager;
-import com.snakerflow.framework.flow.service.SnakerEngineFacets;
-import com.zjzcn.service.FlowManager;
-
+import org.snaker.engine.entity.Process;
 import org.snaker.engine.model.TaskModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.*;
+import com.zjzcn.auth.UserManager;
+import com.zjzcn.service.FlowManager;
 
 /**
  * @author yuqs
@@ -44,7 +45,9 @@ public class FlowController {
     @Autowired
     private FlowManager flowManager;
     @Autowired
-    private ApprovalManager manager;
+    private UserManager userManager;
+//    @Autowired
+//    private ApprovalManager manager;
     /**
      * 流程实例查询
      * @param model
@@ -66,11 +69,11 @@ public class FlowController {
      */
     @RequestMapping(value = "ccread")
     public String ccread(String id, String url) {
-        List<String> list = ShiroUtils.getGroups();
-        list.add(ShiroUtils.getUsername());
-        String[] assignees = new String[list.size()];
-        list.toArray(assignees);
-        flowManager.getEngine().order().updateCCStatus(id, assignees);
+//        List<String> list = ShiroUtils.getGroups();
+//        list.add(ShiroUtils.getUsername());
+//        String[] assignees = new String[list.size()];
+//        list.toArray(assignees);
+//        flowManager.getEngine().order().updateCCStatus(id, assignees);
         return "redirect:" + url;
     }
 
@@ -94,19 +97,19 @@ public class FlowController {
                         value = paraValue;
                         break;
                     case 'I':
-                        value = ConvertUtils.convertStringToObject(paraValue, Integer.class);
+                        value = ConvertUtils.convert(paraValue, Integer.class);
                         break;
                     case 'L':
-                        value = ConvertUtils.convertStringToObject(paraValue, Long.class);
+                        value = ConvertUtils.convert(paraValue, Long.class);
                         break;
                     case 'B':
-                        value = ConvertUtils.convertStringToObject(paraValue, Boolean.class);
+                        value = ConvertUtils.convert(paraValue, Boolean.class);
                         break;
                     case 'D':
-                        value = ConvertUtils.convertStringToObject(paraValue, Date.class);
+                        value = ConvertUtils.convert(paraValue, Date.class);
                         break;
                     case 'N':
-                        value = ConvertUtils.convertStringToObject(paraValue, Double.class);
+                        value = ConvertUtils.convert(paraValue, Double.class);
                         break;
                     default:
                         value = paraValue;
@@ -120,7 +123,7 @@ public class FlowController {
         String taskId = request.getParameter(PARA_TASKID);
         String nextOperator = request.getParameter(PARA_NEXTOPERATOR);
         if (StringUtils.isEmpty(orderId) && StringUtils.isEmpty(taskId)) {
-            flowManager.startAndExecute(processId, ShiroUtils.getUsername(), params);
+            flowManager.startAndExecute(processId, userManager.getUsername(), params);
         } else {
             String methodStr = request.getParameter(PARA_METHOD);
             int method;
@@ -131,29 +134,29 @@ public class FlowController {
             }
             switch(method) {
                 case 0://任务执行
-                    flowManager.execute(taskId, ShiroUtils.getUsername(), params);
+                    flowManager.execute(taskId, userManager.getUsername(), params);
                     break;
                 case -1://驳回、任意跳转
-                    flowManager.executeAndJump(taskId, ShiroUtils.getUsername(), params, request.getParameter(PARA_NODENAME));
+                    flowManager.executeAndJump(taskId, userManager.getUsername(), params, request.getParameter(PARA_NODENAME));
                     break;
                 case 1://转办
                     if(StringUtils.isNotEmpty(nextOperator)) {
-                        flowManager.transferMajor(taskId, ShiroUtils.getUsername(), nextOperator.split(","));
+                        flowManager.transferMajor(taskId, userManager.getUsername(), nextOperator.split(","));
                     }
                     break;
                 case 2://协办
                     if(StringUtils.isNotEmpty(nextOperator)) {
-                        flowManager.transferAidant(taskId, ShiroUtils.getUsername(), nextOperator.split(","));
+                        flowManager.transferAidant(taskId, userManager.getUsername(), nextOperator.split(","));
                     }
                     break;
                 default:
-                    flowManager.execute(taskId, ShiroUtils.getUsername(), params);
+                    flowManager.execute(taskId, userManager.getUsername(), params);
                     break;
             }
         }
         String ccOperator = request.getParameter(PARA_CCOPERATOR);
         if(StringUtils.isNotEmpty(ccOperator)) {
-            flowManager.getEngine().order().createCCOrder(orderId, ShiroUtils.getUsername(), ccOperator.split(","));
+            flowManager.getEngine().order().createCCOrder(orderId, userManager.getUsername(), ccOperator.split(","));
         }
         return "redirect:/snaker/task/active";
     }
@@ -211,7 +214,7 @@ public class FlowController {
         if(StringUtils.isNotEmpty(taskId)) {
             return "snaker/approval";
         } else {
-            model.addAttribute("approvals", manager.findByFlow(orderId, taskName));
+//            model.addAttribute("approvals", manager.findByFlow(orderId, taskName));
             return "snaker/approvalView";
         }
     }
@@ -220,15 +223,15 @@ public class FlowController {
      * 审批环节的提交处理
      * 其中审批表可根据具体审批的业务进行定制，此处仅仅是举例
      */
-    @RequestMapping(value = "doApproval", method = RequestMethod.POST)
-    public String doApproval(Approval model) {
-        model.setOperateTime(new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
-        model.setOperator(ShiroUtils.getUsername());
-        manager.save(model);
-
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("result", model.getResult());
-        flowManager.execute(model.getTaskId(), ShiroUtils.getUsername(), params);
-        return "redirect:/snaker/task/active";
-    }
+//    @RequestMapping(value = "doApproval", method = RequestMethod.POST)
+//    public String doApproval(Approval model) {
+////        model.setOperateTime(new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
+////        model.setOperator(ShiroUtils.getUsername());
+////        manager.save(model);
+////
+////        Map<String, Object> params = new HashMap<String, Object>();
+////        params.put("result", model.getResult());
+////        flowManager.execute(model.getTaskId(), ShiroUtils.getUsername(), params);
+//        return "redirect:/snaker/task/active";
+//    }
 }

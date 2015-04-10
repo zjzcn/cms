@@ -20,6 +20,7 @@
 	</context:component-scan>
 	
 	<import resource="classpath*:/spring/spring-shiro.xml"/>
+	<import resource="classpath*:/spring/spring-snaker.xml"/>
 	
    	<!-- 配置连接池 c3p0连接池
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
@@ -62,6 +63,17 @@
             </props>
         </property>
         <property name="packagesToScan" value="com.zjzcn.entity"/>
+        <property name="mappingResources">
+			<list>
+				<value>hbm/snaker.task.hbm.xml</value>
+				<value>hbm/snaker.order.hbm.xml</value>
+				<value>hbm/snaker.ccorder.hbm.xml</value>
+				<value>hbm/snaker.process.hbm.xml</value>
+				<value>hbm/snaker.taskactor.hbm.xml</value>
+				<value>hbm/snaker.workitem.hbm.xml</value>
+				<value>hbm/snaker.surrogate.hbm.xml</value>
+			</list>
+		</property> 
     </bean>
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>

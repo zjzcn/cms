@@ -39,12 +39,12 @@ public class TaskController {
 	
 	@RequestMapping(value = "active", method=RequestMethod.GET)
 	public String homeTaskList(Model model) {
-		List<String> list = userManager.getGroups();
-		list.add(userManager.getUsername());
-		log.info(list.toString());
-		String[] assignees = new String[list.size()];
-		list.toArray(assignees);
-		
+//		List<String> list = userManager.getGroups();
+//		list.add(userManager.getUsername());
+//		log.info(list.toString());
+//		String[] assignees = new String[list.size()];
+//		list.toArray(assignees);
+		String[] assignees = new String[3];
 		Page<WorkItem> majorPage = new Page<WorkItem>(5);
 		Page<WorkItem> aidantPage = new Page<WorkItem>(3);
 		Page<HistoryOrder> ccorderPage = new Page<HistoryOrder>(3);
@@ -70,7 +70,7 @@ public class TaskController {
 		model.addAttribute("aidantTotal", aidantPage.getTotalCount());
 		model.addAttribute("ccorderWorks", ccWorks);
 		model.addAttribute("ccorderTotal", ccorderPage.getTotalCount());
-		return "snaker/activeTask";
+		return "admin/flow/task_active";
 	}
 	
 	/**
@@ -136,15 +136,15 @@ public class TaskController {
 	 */
 	@RequestMapping(value = "active/more", method=RequestMethod.GET)
 	public String activeTaskList(Model model, Page<WorkItem> page, Integer taskType) {
-		List<String> list = userManager.getGroups();
-		list.add(userManager.getUsername());
-		log.info(list.toString());
-		String[] assignees = new String[list.size()];
-		list.toArray(assignees);
-		flowManager.getEngine().query().getWorkItems(page, 
-				new QueryFilter().setOperators(assignees).setTaskType(taskType));
-		model.addAttribute("page", page);
-		model.addAttribute("taskType", taskType);
+//		List<String> list = userManager.getGroups();
+//		list.add(userManager.getUsername());
+//		log.info(list.toString());
+//		String[] assignees = new String[list.size()];
+//		list.toArray(assignees);
+//		flowManager.getEngine().query().getWorkItems(page, 
+//				new QueryFilter().setOperators(assignees).setTaskType(taskType));
+//		model.addAttribute("page", page);
+//		model.addAttribute("taskType", taskType);
 		return "snaker/activeTaskMore";
 	}
 	
@@ -155,17 +155,17 @@ public class TaskController {
 	 */
 	@RequestMapping(value = "active/ccmore", method=RequestMethod.GET)
 	public String activeCCList(Model model, Page<HistoryOrder> page) {
-		List<String> list = userManager.getGroups();
-		list.add(userManager.getUsername());
-		log.info(list.toString());
-		String[] assignees = new String[list.size()];
-		list.toArray(assignees);
-		flowManager.getEngine()
-				.query()
-				.getCCWorks(page, new QueryFilter()
-				.setOperators(assignees)
-				.setState(1));
-		model.addAttribute("page", page);
+//		List<String> list = userManager.getGroups();
+//		list.add(userManager.getUsername());
+//		log.info(list.toString());
+//		String[] assignees = new String[list.size()];
+//		list.toArray(assignees);
+//		flowManager.getEngine()
+//				.query()
+//				.getCCWorks(page, new QueryFilter()
+//				.setOperators(assignees)
+//				.setState(1));
+//		model.addAttribute("page", page);
 		return "snaker/activeCCMore";
 	}
 	

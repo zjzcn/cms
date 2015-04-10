@@ -74,7 +74,7 @@ public class LoginController extends BaseController {
 
 	@RequestMapping("main")
 	public String main(ModelMap model) {
-		MenuNode menu = userManager.getCurrentMenuTree();
+		MenuNode menu = userManager.getMenuTree();
 		model.addAttribute("menus", menu.getChildren());
 		return "admin/main";
 	}

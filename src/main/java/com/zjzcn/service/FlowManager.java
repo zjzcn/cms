@@ -31,13 +31,13 @@ import org.snaker.engine.entity.Task;
 import org.snaker.engine.helper.StreamHelper;
 import org.snaker.engine.model.TaskModel.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * @author yuqs
  * @since 0.1
  */
-@Component
+@Service
 public class FlowManager {
 	@Autowired
 	private SnakerEngine engine;
