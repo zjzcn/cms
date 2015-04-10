@@ -12,6 +12,7 @@ import com.snakerflow.framework.security.shiro.ShiroUtils;
 import com.snakerflow.framework.utils.ConvertUtils;
 import com.snakerflow.framework.flow.service.ApprovalManager;
 import com.snakerflow.framework.flow.service.SnakerEngineFacets;
+import com.zjzcn.service.FlowManager;
 
 import org.snaker.engine.model.TaskModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class FlowController {
     public static final String PARA_NODENAME = "nodeName";
     public static final String PARA_CCOPERATOR = "ccOperator";
     @Autowired
-    private SnakerEngineFacets facets;
+    private FlowManager flowManager;
     @Autowired
     private ApprovalManager manager;
     /**
@@ -52,7 +53,7 @@ public class FlowController {
      */
     @RequestMapping(value = "order", method= RequestMethod.GET)
     public String order(Model model, Page<HistoryOrder> page) {
-        facets.getEngine().query().getHistoryOrders(page, new QueryFilter());
+        flowManager.getEngine().query().getHistoryOrders(page, new QueryFilter());
         model.addAttribute("page", page);
         return "snaker/order";
     }
@@ -69,7 +70,7 @@ public class FlowController {
         list.add(ShiroUtils.getUsername());
         String[] assignees = new String[list.size()];
         list.toArray(assignees);
-        facets.getEngine().order().updateCCStatus(id, assignees);
+        flowManager.getEngine().order().updateCCStatus(id, assignees);
         return "redirect:" + url;
     }
 
@@ -119,7 +120,7 @@ public class FlowController {
         String taskId = request.getParameter(PARA_TASKID);
         String nextOperator = request.getParameter(PARA_NEXTOPERATOR);
         if (StringUtils.isEmpty(orderId) && StringUtils.isEmpty(taskId)) {
-            facets.startAndExecute(processId, ShiroUtils.getUsername(), params);
+            flowManager.startAndExecute(processId, ShiroUtils.getUsername(), params);
         } else {
             String methodStr = request.getParameter(PARA_METHOD);
             int method;
@@ -130,29 +131,29 @@ public class FlowController {
             }
             switch(method) {
                 case 0://任务执行
-                    facets.execute(taskId, ShiroUtils.getUsername(), params);
+                    flowManager.execute(taskId, ShiroUtils.getUsername(), params);
                     break;
                 case -1://驳回、任意跳转
-                    facets.executeAndJump(taskId, ShiroUtils.getUsername(), params, request.getParameter(PARA_NODENAME));
+                    flowManager.executeAndJump(taskId, ShiroUtils.getUsername(), params, request.getParameter(PARA_NODENAME));
                     break;
                 case 1://转办
                     if(StringUtils.isNotEmpty(nextOperator)) {
-                        facets.transferMajor(taskId, ShiroUtils.getUsername(), nextOperator.split(","));
+                        flowManager.transferMajor(taskId, ShiroUtils.getUsername(), nextOperator.split(","));
                     }
                     break;
                 case 2://协办
                     if(StringUtils.isNotEmpty(nextOperator)) {
-                        facets.transferAidant(taskId, ShiroUtils.getUsername(), nextOperator.split(","));
+                        flowManager.transferAidant(taskId, ShiroUtils.getUsername(), nextOperator.split(","));
                     }
                     break;
                 default:
-                    facets.execute(taskId, ShiroUtils.getUsername(), params);
+                    flowManager.execute(taskId, ShiroUtils.getUsername(), params);
                     break;
             }
         }
         String ccOperator = request.getParameter(PARA_CCOPERATOR);
         if(StringUtils.isNotEmpty(ccOperator)) {
-            facets.getEngine().order().createCCOrder(orderId, ShiroUtils.getUsername(), ccOperator.split(","));
+            flowManager.getEngine().order().createCCOrder(orderId, ShiroUtils.getUsername(), ccOperator.split(","));
         }
         return "redirect:/snaker/task/active";
     }
@@ -167,13 +168,13 @@ public class FlowController {
 		model.addAttribute("orderId", orderId);
 		model.addAttribute("taskId", taskId);
         if(StringUtils.isNotEmpty(processId)) {
-            model.addAttribute("process", facets.getEngine().process().getProcessById(processId));
+            model.addAttribute("process", flowManager.getEngine().process().getProcessById(processId));
         }
         if(StringUtils.isNotEmpty(orderId)) {
-            model.addAttribute("order", facets.getEngine().query().getOrder(orderId));
+            model.addAttribute("order", flowManager.getEngine().query().getOrder(orderId));
         }
         if(StringUtils.isNotEmpty(taskId)) {
-            model.addAttribute("task", facets.getEngine().query().getTask(taskId));
+            model.addAttribute("task", flowManager.getEngine().query().getTask(taskId));
         }
         return "snaker/all";
     }
@@ -185,7 +186,7 @@ public class FlowController {
     @RequestMapping(value = "node")
     @ResponseBody
     public Object node(String processId) {
-        Process process = facets.getEngine().process().getProcessById(processId);
+        Process process = flowManager.getEngine().process().getProcessById(processId);
         List<TaskModel> models = process.getModel().getModels(TaskModel.class);
         List<TaskModel> viewModels = new ArrayList<TaskModel>();
         for(TaskModel model : models) {
@@ -227,7 +228,7 @@ public class FlowController {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("result", model.getResult());
-        facets.execute(model.getTaskId(), ShiroUtils.getUsername(), params);
+        flowManager.execute(model.getTaskId(), ShiroUtils.getUsername(), params);
         return "redirect:/snaker/task/active";
     }
 }

@@ -26,7 +26,7 @@ public class UserManager {
 	@Autowired
 	private CommonDao<User> userDao;
 
-	public String getCurrentUsername() {
+	public String getUsername() {
 		Subject subject = SecurityUtils.getSubject();
 		if (subject == null) {
 			return null;
@@ -34,7 +34,7 @@ public class UserManager {
 		return (String) subject.getPrincipal();
 	}
 
-	public User getCurrentUser() {
+	public User getUser() {
 		Subject subject = SecurityUtils.getSubject();
 		if (subject != null) {
 			return findByUsername((String) subject.getPrincipal());
@@ -51,7 +51,7 @@ public class UserManager {
 
 	public Set<String> getCurrentStringPermissions() {
 		Set<String> perms = new HashSet<String>();
-		User user = getCurrentUser();
+		User user = getUser();
 		if (user != null) {
 			for (Role role : user.getRoles()) {
 				if (role.getIsSuper() == 1) {

@@ -47,7 +47,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		Map<String, LogNode> logConfigs = ConfigHelper.getLogConfigs();
-		String username = userService.getCurrentUsername();
+		String username = userService.getUsername();
 		if (logConfigs != null && StringUtils.isNotBlank(username)) {
 			HttpServletRequest req = (HttpServletRequest)request;
 			String uri = req.getRequestURI().split("[?]")[0];

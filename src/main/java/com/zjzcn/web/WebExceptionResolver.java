@@ -36,7 +36,7 @@ public class WebExceptionResolver implements HandlerExceptionResolver
 		log.setLogType(1);
 		log.setName("系统异常");
 		log.setContent("异常码:"+errorCode);
-		log.setUsername(userService.getCurrentUsername());
+		log.setUsername(userService.getUsername());
 		log.setCreateTime(DateUtils.getCurrentTime(null));
 		log.setIp(request.getRemoteAddr());
 		logService.save(log);

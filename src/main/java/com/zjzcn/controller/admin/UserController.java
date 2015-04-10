@@ -224,7 +224,7 @@ public class UserController extends BaseController {
 	@RequestMapping("self_changeInfo")
 	public String self_edit(HttpServletRequest request, ModelMap model) {
 		QueryFilter filter = QueryFilter.newFilter();
-		filter.eq("username", userManager.getCurrentUsername());
+		filter.eq("username", userManager.getUsername());
 		User user = userService.findByFilter(filter);
 
 		model.addAttribute("user", user);
@@ -255,7 +255,7 @@ public class UserController extends BaseController {
 
 	@RequestMapping("self_doChangePwd")
 	public void self_doChangePwd(String password, String newpassword, Writer writer) throws IOException {
-		User user = userManager.getCurrentUser();
+		User user = userManager.getUser();
 		if (!user.getPassword().equals(DigestUtils.md5Hex(password))) {
 			user.setPassword(DigestUtils.md5Hex(newpassword));
 			userService.update(user);

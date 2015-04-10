@@ -85,7 +85,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		authorizationInfo.addStringPermissions(perms);
 
-		logger.info("User[{}] has permission set:{}", userManager.getCurrentUsername(), authorizationInfo.getStringPermissions());
+		logger.info("User[{}] has permission set:{}", userManager.getUsername(), authorizationInfo.getStringPermissions());
 		return authorizationInfo;
 	}
 
