@@ -94,7 +94,7 @@
 	
 	<!-- 那些类的哪些方法参与事务 -->
 	<aop:config>
-		<aop:pointcut id="txPointCut" expression="execution(* com.zjzcn.service.impl.*.*(..))"/>
+		<aop:pointcut id="txPointCut" expression="execution(* com.zjzcn.service.*.*(..))"/>
 		<aop:advisor pointcut-ref="txPointCut" advice-ref="txAdvice" />
 	</aop:config>
 	

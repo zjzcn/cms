@@ -75,7 +75,7 @@ public class ProcessController {
 		}
 		flowManager.getEngine().process().getProcesss(page, filter);
 		model.addAttribute("page", page);
-		return "snaker/processList";
+		return "admin/flow/process_list";
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public class ProcessController {
 	@RequestMapping(value = "init", method=RequestMethod.GET)
 	public String processInit() {
 		flowManager.initFlows();
-		return "redirect:/snaker/process/list";
+		return "redirect:/snaker/process/list.do";
 	}
 	
 	/**

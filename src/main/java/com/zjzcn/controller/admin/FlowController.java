@@ -77,7 +77,6 @@ public class FlowController {
         return "redirect:" + url;
     }
 
-    @SuppressWarnings("unchecked")
 	@RequestMapping(value = "process")
     public String process(HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -179,7 +178,7 @@ public class FlowController {
         if(StringUtils.isNotEmpty(taskId)) {
             model.addAttribute("task", flowManager.getEngine().query().getTask(taskId));
         }
-        return "snaker/all";
+        return "admin/flow/all";
     }
 
     /**
