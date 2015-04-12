@@ -1,6 +1,7 @@
 package com.zjzcn.controller.admin;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ import com.zjzcn.service.FlowManager;
  * @since 0.1
  */
 @Controller
-@RequestMapping(value = "/snaker/task")
+@RequestMapping(value = "admin/snaker/task")
 public class TaskController {
 	private static final Logger log = LoggerFactory.getLogger(TaskController.class);
 	@Autowired
@@ -39,12 +40,11 @@ public class TaskController {
 	
 	@RequestMapping(value = "active", method=RequestMethod.GET)
 	public String homeTaskList(Model model) {
-//		List<String> list = userManager.getGroups();
-//		list.add(userManager.getUsername());
+		List<String> list = new LinkedList<>();
+		list.add(userManager.getUsername());
 //		log.info(list.toString());
-//		String[] assignees = new String[list.size()];
-//		list.toArray(assignees);
-		String[] assignees = new String[3];
+		String[] assignees = new String[list.size()];
+		list.toArray(assignees);
 		Page<WorkItem> majorPage = new Page<WorkItem>(5);
 		Page<WorkItem> aidantPage = new Page<WorkItem>(3);
 		Page<HistoryOrder> ccorderPage = new Page<HistoryOrder>(3);

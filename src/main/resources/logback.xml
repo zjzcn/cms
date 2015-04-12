@@ -1,38 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <!-- %.-1level 只显示信息级别的首字母,%-5level 左对齐显示信息级别全称 -->
-            <!-- 如需自定义关键字，用 %mdc{键名} 表示,程序中用MDC.put("键名","键值")设置，可动态设置 [%logger:%line]-->
-            <Pattern>[%date{HH:mm:ss}] [%-5level] --%mdc{client} %msg%n</Pattern>
-        </encoder>>
-    </appender>
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>log/log.log</file>
+<!--
+	debug="true" 	启动时输出配置加载信息
+	scan="true" 	默认每分钟自动扫描
+	scanPeriod="30 seconds" 	设置每30秒自动扫描,若没有指定具体单位则以milliseconds为标准(单位:milliseconds, seconds, minutes or hours)
+-->
+<configuration scan="true" scanPeriod="2 seconds">
+
+	<contextName>MacroteaLogging</contextName>
+	
+	<property name="tip" value="信息:" />
+	<!--tomcat webapps路径-->
+	<property name="LOG_HOME" value="logs" />
+	<!--项目名(我是直接在ROOT)-->
+	<property name="logback.project.name" value="ROOT" />
+	<!--日志模块名(如:默认(default),销售(sales),订单(orders)...)-->
+	<property name="logback.logs.module.name" value="default" />
+	
+	<timestamp key="byDay" datePattern="yyyyMMdd"/>
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+       <!-- 日志输出编码 -->  
+       <encoding>UTF-8</encoding>   
+        <layout class="ch.qos.logback.classic.PatternLayout">   
+             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符--> 
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n   
+            </pattern>   
+        </layout>   
+    </appender>   
+    <!-- 按照每天生成日志文件 -->   
+    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">   
+        <encoding>UTF-8</encoding>   
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>log/log.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-        <encoder>
-            <!-- %-40(%-35logger{35}:%-4line) -->
-            <Pattern>[%date{yyyy-MM-dd HH:mm:ss}] [%-5level] [%logger:%line] --%mdc{client} %msg%n</Pattern>
-        </encoder>>
-    </appender>
-    <logger name="com.mchange" level="INFO"/>
-    <logger name="org.springframework" level="WARN"/>
-    <logger name="java.sql.Connection" level="DEBUG"/>
-    <logger name="java.sql.ResultSet" level="INFO"/>
-    <logger name="com.boaotech.util" level="DEBUG"/>
-    <root level="info">
-        <appender-ref ref="STDOUT"/>
-        <!-- appender-ref ref="FILE" / -->
-    </root>
-    <!-- appender name="FAILSQL" class="ch.qos.logback.core.FileAppender">
-        <file>log/fail.sql.log</file>
-        <encoder>
-            <Pattern>%date{yyyy-MM-dd HH:mm:ss} %msg%n</Pattern>
-        </encoder>
-    </appender>
-    <logger name="com.boaotech.osgi.posdb.FailSqlLog">
-        <appender-ref ref="FAILSQL"/>
-    </logger -->
+            <!--日志文件输出的文件名-->
+            <fileNamePattern>${LOG_HOME}/log-%d{yyyy-MM-dd}.txt</fileNamePattern>   
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>   
+        <layout class="ch.qos.logback.classic.PatternLayout">  
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符--> 
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n   
+            </pattern>   
+       </layout> 
+        <!--日志文件最大的大小-->
+       <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+         <maxFileSize>10MB</maxFileSize>
+       </triggeringPolicy>
+    </appender> 
+	
+	<logger name="org.springframework" level="INFO"/>
+	<logger name="org.hibernate" level="INFO"/>
+	
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />   
+        <appender-ref ref="FILE" /> 
+	</root>
 </configuration>

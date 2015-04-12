@@ -55,7 +55,7 @@ import com.zjzcn.service.FlowManager;
  * @since 0.1
  */
 @Controller
-@RequestMapping(value = "/snaker/process")
+@RequestMapping(value = "admin/snaker/process")
 public class ProcessController {
 	private static Logger log = LoggerFactory.getLogger(ProcessController.class);
 	@Autowired

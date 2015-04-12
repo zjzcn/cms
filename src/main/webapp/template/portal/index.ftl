@@ -4,9 +4,9 @@
 <head>
 	<title>NewgenBiz Free Business Website Template bt Templateasperfect.com</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" href="${base}/resourse/portal/css/style.css" type="text/css" media="all" />
-    <script type="text/javascript" src="${base}/resourse/portal/js/jquery-1.7.2.js"></script>
-	<script type="text/javascript" src="${base}/resourse/portal/js/jquery.tools.js"></script>
+	<link rel="stylesheet" href="${ctx}/resourse/portal/css/style.css" type="text/css" media="all" />
+    <script type="text/javascript" src="${ctx}/resourse/portal/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="${ctx}/resourse/portal/js/jquery.tools.js"></script>
 </head>
 <body>
 	<!-- Begin Wrapper -->
@@ -20,13 +20,13 @@
 					<div id="navigation">
 						<ul>
 						    <li><a href="#" class="active">首页</a></li>
-						    <li><a href="${base}/about.do">公司简介</a></li>
+						    <li><a href="${ctx}/about.do">公司简介</a></li>
 						    <li><a href="#">公司新闻</a></li>
 						    <li><a href="#">解决方案</a></li>
-						    <li><a href="${base}/about.do">联系我们</a></li>
+						    <li><a href="${ctx}/about.do">联系我们</a></li>
 						</ul>
 					</div>
-					<h1 id="logo"><a href="#"><img src="${base}/resourse/portal/images/logo.png" alt="" /></a></h1>
+					<h1 id="logo"><a href="#"><img src="${ctx}/resourse/portal/images/logo.png" alt="" /></a></h1>
 				</div>
 				<!-- End Header -->
 			</div>
@@ -50,7 +50,7 @@
 					  <div class="header">
 					  
 
-						         <div class="top_left"><img src="${base}/resourse/portal/images/marketing.png" alt="" /></a></div>
+						         <div class="top_left"><img src="${ctx}/resourse/portal/images/marketing.png" alt="" /></a></div>
 								<div class="top_right">
 									<h1>Vestibulum vel lacus </h1><br />
 									<span>Nulla mollis, magna quis feugiat faucibus, risus lorem lacinia justo, et adipiscing tortor Nulla mollis, magna quis feugiat faucibus magna quis feugiat faucibus  </span><a href="#" class="more">more</a>
@@ -63,7 +63,7 @@
 					<div class="item">
 					    <div class="header">
 						
-						   <div class="top_left"><img src="${base}/resourse/portal/images/marketing.png" alt="" /></a></div>
+						   <div class="top_left"><img src="${ctx}/resourse/portal/images/marketing.png" alt="" /></a></div>
 								<div class="top_right">
 									<h1>Vestibulum vel lacus </h1><br />
 									<span>Nulla mollis, magna quis feugiat faucibus, risus lorem lacinia justo, et adipiscing tortor Nulla mollis, magna quis feugiat faucibus magna quis feugiat faucibus  </span><a href="#" class="more">more</a>
@@ -77,7 +77,7 @@
 					<div class="item">
 					    <div class="header">
 						
-						   <div class="top_left"><img src="${base}/resourse/portal/images/marketing.png" alt="" /></a></div>
+						   <div class="top_left"><img src="${ctx}/resourse/portal/images/marketing.png" alt="" /></a></div>
 								<div class="top_right">
 									<h1>Vestibulum vel lacus </h1><br />
 									<span>Nulla mollis, magna quis feugiat faucibus, risus lorem lacinia justo, et adipiscing tortor Nulla mollis, magna quis feugiat faucibus magna quis feugiat faucibus  </span><a href="#" class="more">more</a>
@@ -91,7 +91,7 @@
 					<div class="item">
 					    <div class="header">
 						
-						   <div class="top_left"><img src="${base}/resourse/portal/images/marketing.png" alt="" /></a></div>
+						   <div class="top_left"><img src="${ctx}/resourse/portal/images/marketing.png" alt="" /></a></div>
 								<div class="top_right">
 									<h1>Vestibulum vel lacus </h1><br />
 									<span>Nulla mollis, magna quis feugiat faucibus, risus lorem lacinia justo, et adipiscing tortor Nulla mollis, magna quis feugiat faucibus magna quis feugiat faucibus  </span><a href="#" class="more">more</a>
@@ -120,7 +120,7 @@
 							<ul>
 							    <li>
 							      <div class="image">
-						    		  <img src="${base}/resourse/portal/images/globe.png" alt="" />
+						    		  <img src="${ctx}/resourse/portal/images/globe.png" alt="" />
 						    	  </div>
 							    	<div class="entry">
 							    		<h3>服务1</h3>
@@ -130,7 +130,7 @@
 							    </li>
 							    <li>
 							    	<div class="image">
-							    		<img src="${base}/resourse/portal/images/box.png" alt="" />
+							    		<img src="${ctx}/resourse/portal/images/box.png" alt="" />
 							    	</div>
 							    	<div class="entry">
 							    		<h3>服务2</h3>
@@ -140,7 +140,7 @@
 							    </li>
 							    <li class="last">
 							    	<div class="image">
-							    		<img src="${base}/resourse/portal/images/user.png" alt="" />
+							    		<img src="${ctx}/resourse/portal/images/user.png" alt="" />
 							    	</div>
 							    	<div class="entry">
 							    		<h3>服务3</h3>
@@ -157,7 +157,7 @@
 						<div class="article">
 							<h2>Welcome to Company</h2>
 							<div class="image">
-								<img src="${base}/resourse/portal/images/image.jpg" alt="" width="240" height="180" />
+								<img src="${ctx}/resourse/portal/images/image.jpg" alt="" width="240" height="180" />
           </div>
 							<p><strong>Lorem ipsum dolor sit amet,</strong> consectetur adipiscing elit. Integer dictum, neque ut imperdiet pellentesque, nulla tellus tempus magna, sed consectetur orci metus a justo. Integer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dictum, neque ut imperdiet pellentesque, nulla tellus tempus magna, sed consectetur orci metus a justo. Integer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dictum, neque ut imperdiet pellentesque, nulla tellus tempus magna, sed consectetur orci metus a justo. Integer .Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dictum, neque ut imperdiet pellentesque, nulla tellus tempus magna, sed consectetur orci metus.</p>
 							<p class="more-link"><a href="#">Learn More</a></p>
@@ -204,7 +204,7 @@
 					<a href="#">Services</a> <span>|</span>
 					<a href="#">Solutions</a> <span>|</span>
 					<a href="#">Support</a> <span>|</span>
-					<a href="${base}/admin/main.do">管理员登陆</a>
+					<a href="${ctx}/admin/main.do">管理员登陆</a>
 				</p>
 			</div>
 			<!-- End Footer -->

@@ -6,6 +6,7 @@
 	</head>
 
 	<body>
+	<a href="http://localhost:8080/zebbra.cms/admin/flow/leave/apply.do">请假</a>
 	<form id="mainForm" action="${ctx}/snaker/task/active" method="get">
 		<table width="100%" border="0" align="center" cellpadding="0"
 				class="table_all_border" cellspacing="0" style="border-bottom: 0px; margin-bottom: 0px">
@@ -58,7 +59,8 @@
 					</td>
 					<td class="td_list_2" align=left nowrap>
 						<a href="${ctx}/snaker/process/display?processId=${item.processId }&orderId=${item.orderId} " class="btnPict" title="查看流程图">查看流程图</a>
-						<a href="${ctx}${item.instanceUrl }?processId=${item.processId }&taskId=${item.taskId}&orderId=${item.orderId} " class="btnEdit" title="处理">处理</a>
+						<a href="${ctx}/admin/flow/leave/approveDept.do?processId=${item.processId }&taskId=${item.taskId}&orderId=${item.orderId} " class="btnEdit" title="处理">处理1</a>
+						<a href="${ctx}/admin/flow/leave/approveBoss.do?processId=${item.processId }&taskId=${item.taskId}&orderId=${item.orderId} " class="btnEdit" title="处理">处理2</a>
 					</td>
 				</tr>
 			</#list>

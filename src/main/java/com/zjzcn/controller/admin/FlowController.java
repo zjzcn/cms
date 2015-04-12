@@ -32,7 +32,7 @@ import com.zjzcn.service.FlowManager;
  * @since 2.0
  */
 @Controller
-@RequestMapping(value = "/snaker/flow")
+@RequestMapping(value = "admin/snaker/flow")
 public class FlowController {
     public static final String PARA_PROCESSID = "processId";
     public static final String PARA_ORDERID = "orderId";
@@ -157,7 +157,7 @@ public class FlowController {
         if(StringUtils.isNotEmpty(ccOperator)) {
             flowManager.getEngine().order().createCCOrder(orderId, userManager.getUsername(), ccOperator.split(","));
         }
-        return "redirect:/snaker/task/active";
+        return "redirect:/admin/snaker/task/active.do";
     }
 
     /**

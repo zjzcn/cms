@@ -17,10 +17,10 @@ import org.apache.shiro.web.filter.authz.AuthorizationFilter;
  * @since 0.9
  */
 public class WildcardPermissionsFilter extends AuthorizationFilter {
-	
+
 	@Override
-	public boolean isAccessAllowed(ServletRequest request,
-			ServletResponse response, Object mappedValue) throws IOException {
+	public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
+			throws IOException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		String uri = req.getRequestURI().split("[?]")[0];
 		String[] strs = uri.split("[\\/\\.]");
