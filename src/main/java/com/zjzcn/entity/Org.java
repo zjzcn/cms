@@ -28,6 +28,10 @@ public class Org extends BaseEntity {
 	// 根部门ID号默认为0
 	public static final Long ROOT_ORG_ID = 0l;
 	
+	public static final String TYPE_ORG = "O";
+	
+	public static final String TYPE_POSITION = "P";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
@@ -45,6 +49,9 @@ public class Org extends BaseEntity {
 	// 部门描述
 	@Column(name="description")
 	private String description;
+	// 组织架构（O）还是职位（P）
+	@Column(name="type")
+	private String type;
 	// 部门管辖的所有用户列表（一对多关联）
 	@OneToMany(mappedBy = "org",cascade = CascadeType.ALL)
 	private List<User> users = new ArrayList<User>();
@@ -93,6 +100,12 @@ public class Org extends BaseEntity {
 	}
 	public void setChildrenOrgs(List<Org> childrenOrgs) {
 		this.childrenOrgs = childrenOrgs;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }
