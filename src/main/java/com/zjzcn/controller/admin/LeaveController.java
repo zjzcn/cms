@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.zjzcn.auth.UserManager;
+import com.zjzcn.entity.User;
 import com.zjzcn.service.FlowManager;
+import com.zjzcn.service.UserService;
 
 /**
  * 请假流程Controller
@@ -26,6 +28,8 @@ public class LeaveController {
     private FlowManager facets;
     @Autowired
     private UserManager userManager;
+    @Autowired
+    private UserService userService;
 	/**
 	 * 请假申请路由方法
 	 */
@@ -37,7 +41,9 @@ public class LeaveController {
 		model.addAttribute("taskId", taskId);
 		//设置操作人为当前登录用户，请假流程演示时，将申请人、部门经理审批人、总经理审批人都设置为当前用户
 		//可通过修改申请页面的部门经理、总经理输入框来改变下一步的处理人
-		model.addAttribute("operator", userManager.getUsername());
+		User user = userManager.getUser();
+		model.addAttribute("operator", user.getUsername());
+		model.addAttribute("operatorM", userService.findLeader(user.getId()).getUsername());
 		//根据taskId是否为空来标识当前请求的页面是否为活动任务的节点页面
 		if(StringUtils.isEmpty(orderId) || StringUtils.isNotEmpty(taskId)) {
 			//如果实例id为空或者驳回情况下，返回apply.jsp

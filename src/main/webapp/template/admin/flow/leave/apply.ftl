@@ -36,7 +36,7 @@
 				<tr>
 					<td class="td_table_1"><span>部门经理：</span></td>
 					<td class="td_table_2" colspan="3">
-						<input type="text" class="input_240" name="S_approveDept.operator" value="${operator }" />
+						<input type="text" class="input_240" name="S_approveDept.operator" value="${operatorM}" />
 					</td>
 				</tr>
 				<tr>
