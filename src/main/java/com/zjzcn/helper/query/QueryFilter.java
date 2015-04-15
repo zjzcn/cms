@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.zjzcn.helper.query.filer.OrderbyFilter;
-import com.zjzcn.helper.query.filer.PageFilter;
-import com.zjzcn.helper.query.filer.Filter;
-import com.zjzcn.helper.query.filer.WhereFilter;
+import com.zjzcn.helper.query.filter.Filter;
+import com.zjzcn.helper.query.filter.OrderbyFilter;
+import com.zjzcn.helper.query.filter.PageFilter;
+import com.zjzcn.helper.query.filter.WhereFilter;
 
 /**
  * @author zhangjz

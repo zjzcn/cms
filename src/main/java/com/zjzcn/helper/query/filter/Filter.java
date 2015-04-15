@@ -1,4 +1,4 @@
-package com.zjzcn.helper.query.filer;
+package com.zjzcn.helper.query.filter;
 
 /**
  * @author zhangjz
