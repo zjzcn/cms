@@ -22,7 +22,7 @@ public class Page<T> {
 
 	private String orderDirection;
 
-	private List<T> list = new ArrayList<T>();// 取得页内的记录列表
+	private List<T> resultList = new ArrayList<T>();// 取得页内的记录列表
 
 	public Page() {
 
@@ -33,8 +33,8 @@ public class Page<T> {
 		this.pageSize = pageSize;
 	}
 
-	public Page(List<T> list) {
-		this.list = list;
+	public Page(List<T> resultList) {
+		this.resultList = resultList;
 	}
 
 	public Page(int pageNo, int pageSize, long totalCount) {
@@ -43,11 +43,11 @@ public class Page<T> {
 		this.totalCount = totalCount;
 	}
 
-	public Page(int pageNo, int pageSize, long totalCount, List<T> list) {
+	public Page(int pageNo, int pageSize, long totalCount, List<T> resultList) {
 		this.pageNo = pageNo;
 		this.pageSize = pageSize;
 		this.totalCount = totalCount;
-		this.list = list;
+		this.resultList = resultList;
 	}
 
 	// -- 访问查询参数函数 --//
@@ -107,12 +107,12 @@ public class Page<T> {
 	/**
 	 * 查询结果list
 	 */
-	public List<T> getList() {
-		return list;
+	public List<T> getResultList() {
+		return resultList;
 	}
 
-	public void setList(List<T> list) {
-		this.list = list;
+	public void setResultList(List<T> resultList) {
+		this.resultList = resultList;
 	}
 
 	/**
