@@ -1,11 +1,11 @@
 /**
  * 提示信息.
  *
- * User: sunhao
- * Date: 13-4-29
- * Time: 上午5:22
+ * User: zhangjz
+ * Date: 14-4-29
+ * Time: 上午7:25
  *
- * @author sunhao(sunhao.java@gmail.com)
+ * @author zhangjz(zjzmain@126.com)
  */
 (function($){	
     //定义整个msgbox对象
@@ -13,11 +13,11 @@
 
     //定义默认属性值
     $.msgbox.defaults = {
-        icon: 'ok',                 //图标(loagin:加载,ok:成功信息,error:错误信息,warn:警告,none:什么都没有)
+        icon: 'ok',                 //图标(loading:加载,ok:成功信息,error:错误信息,warn:警告,none:什么都没有)
         i18n: false,                //是否使用国际化:如果是,message指定为code,否则message为要显示的值
         message: '',                //同上
         timeOut: 3000,              //多长时间之后消失
-        beforeHide: null            //消失前执行的方法
+        closeBefore: function(){}            //消失前执行的方法
     };
 
     $.msgbox.show = function(p){
@@ -93,8 +93,8 @@
             },
             addEvent: function(){
                 var inerval = setInterval(function () {
-                    if(p.beforeHide){
-                        p.beforeHide();
+                    if(p.closeBefore){
+                        p.closeBefore();
                     }
                     $('#m_mgbox').hide();
                     clearTimeout(inerval);

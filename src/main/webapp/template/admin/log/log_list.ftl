@@ -49,7 +49,7 @@
 			<!--<th>日志类型</th>-->
 			<th style="width:80px">操作</th>
 		</tr>
-		<#list pageBean.list as log>
+		<#list pageBean.resultList as log>
 		<tr <#if (log_index%2==0)>class='t1'<#else>class='t2'</#if> >
 			<td>${(pageBean.pageNo-1)*pageBean.pageSize+log_index+1}</td>
 			<td>${log.username}</td>
@@ -93,7 +93,12 @@
 				data : {id: id, ran: Math.random()},
 				success : function(data) {
 					if (data == 'ok') {
-						parent.showMsg("ok", "删除角色成功！");
+						//parent.showMsg("ok", "删除角色成功！");
+						parent.$.msgbox.show({
+					        message: "删除角色成功！",
+					        icon: "ok",
+					        timeOut: 2000
+					    });
 						queryList();
 					} else {
 						Pop.alert('error', '删除失败！');
