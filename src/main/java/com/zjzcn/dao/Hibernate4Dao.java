@@ -28,10 +28,12 @@ public class Hibernate4Dao<T> extends HibernateDaoSupport implements CommonDao<T
 	}
 
 	/* ===================保存和批量保存========================== */
+	@Override
 	public Serializable save(T obj) {
 		return super.getHibernateTemplate().save(obj);
 	}
-
+	
+	@Override
 	public void saveBatch(List<T> list) {
 		for (int i = 0; i < list.size(); i++) {
 			super.getHibernateTemplate().save(list.get(i));
@@ -50,12 +52,14 @@ public class Hibernate4Dao<T> extends HibernateDaoSupport implements CommonDao<T
 	}
 
 	/* ===================删除和批量删除========================== */
+	@Override
 	public void delete(T obj) {
 		super.getHibernateTemplate().delete(obj);
 		super.getHibernateTemplate().flush();
 		super.getHibernateTemplate().evict(obj);
 	}
 
+	@Override
 	public void deleteById(Serializable id, Class<T> clazz) {
 		// 根据id获取类实例
 		Object obj = super.getHibernateTemplate().get(clazz, id);
@@ -69,22 +73,26 @@ public class Hibernate4Dao<T> extends HibernateDaoSupport implements CommonDao<T
 
 	}
 
+	@Override
 	public void deleteBatch(List<T> list) {
 		super.getHibernateTemplate().deleteAll(list);
 		super.getHibernateTemplate().flush();
 	}
 
 	/* ===================更新和批量更新========================== */
+	@Override
 	public void update(T obj) {
 		super.getHibernateTemplate().update(obj);
 	}
 
+	@Override
 	public void merge(T obj) {
 		// 对象在数据库存在进行update操作
 		this.getHibernateTemplate().merge(obj);
 		getHibernateTemplate().flush();
 	}
 
+	@Override
 	public void updateBatch(List<T> list) {
 		for (int i = 0; i < list.size(); i++) {
 			super.getHibernateTemplate().merge(list.get(i));
@@ -101,26 +109,32 @@ public class Hibernate4Dao<T> extends HibernateDaoSupport implements CommonDao<T
 		super.getHibernateTemplate().clear();
 	}
 
+	@Override
 	public T findById(Serializable id, Class<T> clazz) {
 		return super.getHibernateTemplate().get(clazz, id);
 	}
 
 	/* ===================通过filter查询========================== */
+	@Override
 	public T findByFilter(QueryFilter filter, Class<T> clazz) {
 		List<T> list = this.findListByFilter(filter, clazz);
 		return list.isEmpty() ? null : list.get(0);
 	}
 
+	@Override
 	public List<T> findListByFilter(QueryFilter filter, Class<T> clazz) {
 		Object[] params = filter.handleFilters(clazz);
-		return this.findPageByHql((String) params[0], (List<?>) params[1], null).getList();
+		return this.findPageByHql((String) params[0], (List<?>) params[1], null).getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
 	public Page<T> findPageByFilter(QueryFilter filter, Class<T> clazz) {
 		Object[] params = filter.handleFilters(clazz);
 		return this.findPageByHql((String) params[0], (List<?>) params[1], (Page<T>) params[2]);
 	}
 
+	@Override
 	public long count(QueryFilter filter, Class<T> clazz) {
 		Object[] params = filter.handleFilters(clazz);
 		final String hql = (String) params[0];
@@ -148,16 +162,19 @@ public class Hibernate4Dao<T> extends HibernateDaoSupport implements CommonDao<T
 	}
 
 	/* ===================通过HQL查询========================== */
+	@Override
 	public T findByHql(String hql, List<Object> paramList) {
 		List<T> list = this.findListByHql(hql, paramList);
 		return list.isEmpty() ? null : list.get(0);
 	}
 
+	@Override
 	public List<T> findListByHql(String hql, List<Object> paramList) {
-		List<T> list = this.findPageByHql(hql, paramList, null).getList();
+		List<T> list = this.findPageByHql(hql, paramList, null).getResultList();
 		return list;
 	}
 
+	@Override
 	public Page<T> findPageByHql(final String hql, final List<?> paramList, final Page<T> pageBean) {
 		if (pageBean != null) {
 			HibernateCallback<?> callback = new HibernateCallback<Object>() {
@@ -184,6 +201,7 @@ public class Hibernate4Dao<T> extends HibernateDaoSupport implements CommonDao<T
 		}
 
 		HibernateCallback<List<T>> callback = new HibernateCallback<List<T>>() {
+			@SuppressWarnings("unchecked")
 			public List<T> doInHibernate(Session session) {
 				Query query = session.createQuery(hql);
 
@@ -207,11 +225,12 @@ public class Hibernate4Dao<T> extends HibernateDaoSupport implements CommonDao<T
 			return new Page<T>(list);
 		}
 
-		pageBean.setList(list);
+		pageBean.setResultList(list);
 		return pageBean;
 	}
 
 	/* ===================通过SQL查询========================== */
+	@Override
 	public void executeSql(final String sql, final List<Object> paramList) {
 		HibernateCallback<?> callback = new HibernateCallback<Object>() {
 			public Object doInHibernate(Session session) {
@@ -230,11 +249,13 @@ public class Hibernate4Dao<T> extends HibernateDaoSupport implements CommonDao<T
 		super.getHibernateTemplate().execute(callback);
 	}
 
+	@Override
 	public Object findBySql(String sql, List<Object> paramList) {
 		List<?> list = this.findListBySql(sql, paramList);
 		return list.isEmpty() ? null : list.get(0);
 	}
 
+	@Override
 	public List<?> findListBySql(final String sql, final List<Object> paramList) {
 		HibernateCallback<?> callback = new HibernateCallback<Object>() {
 			public List<?> doInHibernate(Session session) {
@@ -251,6 +272,8 @@ public class Hibernate4Dao<T> extends HibernateDaoSupport implements CommonDao<T
 		return (List<?>) super.getHibernateTemplate().execute(callback);
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
 	public List<T> findListBySql(final String sql, final List<Object> paramList, final Class<T> clazz) {
 		HibernateCallback<?> callback = new HibernateCallback<Object>() {
 			public List<T> doInHibernate(Session session) {

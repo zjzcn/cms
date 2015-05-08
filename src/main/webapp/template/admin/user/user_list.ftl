@@ -56,7 +56,7 @@
 			<th orderby="isDisabled">用户状态</th>
 			<th style="width:200px">操作</th>
 		</tr>
-		<#list pageBean.list as user>
+		<#list pageBean.resultList as user>
 		<tr <#if (user_index%2==0)>class='t1'<#else>class='t2'</#if>>
 			<td>${(pageBean.pageNo-1)*pageBean.pageSize+user_index+1}</td>
 			<td>${user.username}</td>

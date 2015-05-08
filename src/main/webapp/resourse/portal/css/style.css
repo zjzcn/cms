@@ -8,7 +8,7 @@ h2 { text-transform:uppercase}
 body {
     font-size: 12px;
     line-height: 20px;
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: 微软雅黑, Tahoma, Geneva, sans-serif;
     color: #666;
     background: #fff url(../images/bg.png) repeat-x;
 }
