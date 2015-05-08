@@ -152,9 +152,22 @@ public class DateUtils {
 	 * @return long
 	 */
 	public static long dateDiff(Date date1, Date date2) {
-		return date2.getTime() / 1000 - date1.getTime() / 1000; // 用立即数，减少乘法计算的开销
+		return (date2.getTime() - date1.getTime()) / 1000; // 用立即数，减少乘法计算的开销
 	}
 
+	/**
+	 * 比较两个时间的差值(以天为单位)
+	 * 
+	 * @param date1
+	 *            时间1
+	 * @param date2
+	 *            时间2
+	 * @return int
+	 */
+	public static int dateDiffDays(Date date1, Date date2) {
+		return (int)(date2.getTime()-date1.getTime()) / (1000 * 60 * 60 * 24); // 用立即数，减少乘法计算的开销
+	}
+	
 	/**
 	 * 作用：获取当前时间 (Date 参数：null, 格式 yyyy-MM-dd HH:mm:ss)
 	 */
